@@ -1,0 +1,285 @@
+/* Botón toggle base (floating + inline) */
+.edta-toggle[data-edta="1"] {
+  position: fixed;
+  z-index: 99999;
+  --edta-offset-x: 18px;
+  --edta-offset-y: 18px;
+
+
+  padding: 0 !important;
+  margin: 0 !important;
+  border: 1px solid rgba(0, 0, 0, 0.15) !important;
+  box-sizing: border-box !important;
+
+  background: rgba(255, 255, 255, 0.9) !important;
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+
+  cursor: pointer;
+  line-height: 1;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+
+  user-select: none;
+  -webkit-tap-highlight-color: transparent;
+
+  color: #111 !important;
+  font-family: ui-sans-serif, system-ui, -apple-system, "Segoe UI", Roboto, Arial,
+    sans-serif;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+}
+
+/* Variante: estilo texto */
+.edta-toggle[data-edta="1"][data-style="text"] {
+  height: 44px;
+  padding: 0 14px !important;
+  border-radius: 999px;
+  font-size: 12px;
+}
+
+/* Variante: estilo ícono */
+.edta-toggle[data-edta="1"][data-style="icon"] {
+  width: 44px;
+  height: 44px;
+  border-radius: 999px;
+  font-size: 0;
+}
+
+/* Tamaño del SVG interno */
+.edta-toggle[data-edta="1"] .edta-ico {
+  width: 20px;
+  height: 20px;
+  display: block;
+  pointer-events: none;
+}
+
+/* Posicionamiento del botón flotante (según esquina elegida) */
+.edta-toggle[data-edta="1"][data-position="br"] { right: var(--edta-offset-x); bottom: var(--edta-offset-y); }
+.edta-toggle[data-edta="1"][data-position="bl"] { left:  var(--edta-offset-x); bottom: var(--edta-offset-y); }
+.edta-toggle[data-edta="1"][data-position="tr"] { right: var(--edta-offset-x); top:    var(--edta-offset-y); }
+.edta-toggle[data-edta="1"][data-position="tl"] { left:  var(--edta-offset-x); top:    var(--edta-offset-y); }
+
+/* Modo inline (shortcode/widget): desactiva fixed y offsets */
+.edta-toggle[data-edta="1"][data-edta-inline="1"] {
+  position: static !important;
+  right: auto !important;
+  left: auto !important;
+  top: auto !important;
+  bottom: auto !important;
+  z-index: auto !important;
+}
+
+/* Ajustes visuales para tema oscuro */
+html.edta-theme-dark .edta-toggle[data-edta="1"] {
+  background: rgba(17, 17, 17, 0.75) !important;
+  border-color: rgba(255, 255, 255, 0.18) !important;
+  color: #f9fafb !important;
+}
+
+/* Estado por defecto: ocultar contenido interno (evita flicker al cargar) */
+.edta-toggle[data-edta="1"] .edta-toggle__icon,
+.edta-toggle[data-edta="1"] .edta-toggle__text {
+  display: none;
+}
+
+/* Texto: mostrar solo el correspondiente al modo */
+html.edta-pre-light .edta-toggle[data-edta="1"][data-style="text"] .edta-toggle__text--light,
+body.edta-theme-light .edta-toggle[data-edta="1"][data-style="text"] .edta-toggle__text--light {
+  display: inline;
+}
+
+html.edta-pre-dark .edta-toggle[data-edta="1"][data-style="text"] .edta-toggle__text--dark,
+body.edta-theme-dark .edta-toggle[data-edta="1"][data-style="text"] .edta-toggle__text--dark {
+  display: inline;
+}
+
+/* Icono: en dark muestra sol (pasar a light), en light muestra luna (pasar a dark) */
+html.edta-pre-dark .edta-toggle[data-edta="1"][data-style="icon"] .edta-toggle__icon--sun,
+body.edta-theme-dark .edta-toggle[data-edta="1"][data-style="icon"] .edta-toggle__icon--sun {
+  display: inline-flex;
+}
+
+html.edta-pre-light .edta-toggle[data-edta="1"][data-style="icon"] .edta-toggle__icon--moon,
+body.edta-theme-light .edta-toggle[data-edta="1"][data-style="icon"] .edta-toggle__icon--moon {
+  display: inline-flex;
+}
+
+/* Asegura alineación interna por si el theme sobrescribe estilos */
+.edta-toggle[data-edta="1"] .edta-toggle__icon,
+.edta-toggle[data-edta="1"] .edta-toggle__text {
+  align-items: center;
+  justify-content: center;
+}
+
+/* Visibilidad según breakpoint (mobile/desktop) */
+@media (max-width: 782px) {
+  .edta-toggle[data-edta="1"][data-visibility="hide_mobile"] { display: none !important; }
+}
+@media (min-width: 783px) {
+  .edta-toggle[data-edta="1"][data-visibility="hide_desktop"] { display: none !important; }
+}
+
+/* Accesibilidad: foco visible (keyboard) */
+.edta-toggle:focus {
+  outline: 2px solid currentColor;
+  outline-offset: 3px;
+}
+
+.edta-toggle:focus:not(:focus-visible) {
+  outline: none;
+}
+
+.edta-toggle:focus-visible {
+  outline: 2px solid currentColor;
+  outline-offset: 3px;
+}
+
+/* Transiciones SOLO durante el cambio de tema (clase temporal en <html>) */
+html.edta-switching body,
+html.edta-switching body * {
+  transition: background-color .2s ease,
+              color .2s ease,
+              border-color .2s ease,
+              fill .2s ease,
+              stroke .2s ease !important;
+}
+
+/* Evita transiciones en el botón para que no “salte” durante el switch */
+html.edta-switching .edta-toggle,
+html.edta-switching .edta-toggle * {
+  transition: none !important;
+}
+
+html.edta-switching .edta-toggle::before,
+html.edta-switching .edta-toggle::after,
+html.edta-switching .edta-toggle *::before,
+html.edta-switching .edta-toggle *::after {
+  transition: none !important;
+}
+
+/* Excepción: permitir animación del knob aun durante edta-switching */
+html.edta-switching .edta-toggle[data-edta="1"][data-style="pill"] .edta-toggle__knob{
+  transition: transform 220ms ease !important;
+}
+
+/* Estilo PILL (switch con knob deslizante) */
+.edta-toggle .edta-toggle__knob { display: none; }
+
+.edta-toggle[data-edta="1"][data-style="pill"]{
+  width: 75px;
+  height: 40px;
+  padding: 4px !important;
+  border-radius: 999px;
+
+  display: inline-flex;
+  align-items: center;
+  justify-content: space-between;
+
+  overflow: hidden;
+  font-size: 0;
+  letter-spacing: 0;
+}
+
+/* Pill: ocultar textos */
+.edta-toggle[data-edta="1"][data-style="pill"] .edta-toggle__text{
+  display: none !important;
+}
+
+/* Pill: estilos de íconos (tamaño/centrado) */
+.edta-toggle[data-edta="1"][data-style="pill"] .edta-toggle__icon{
+  display: inline-flex !important;
+  width: 28px;
+  height: 28px;
+  align-items: center;
+  justify-content: center;
+  opacity: 0.92;
+  z-index: 1;
+}
+
+/* Pill: neutraliza márgenes/paddings heredados y fija ancho */
+.edta-toggle[data-edta="1"][data-style="pill"] .edta-toggle__icon{
+  margin: 0 !important;
+  padding: 0 !important;
+  flex: 0 0 28px;
+}
+
+/* Pill: ajustes de separación hacia el centro */
+.edta-toggle[data-edta="1"][data-style="pill"] .edta-toggle__icon--sun{
+  margin-left: 2px !important;
+}
+.edta-toggle[data-edta="1"][data-style="pill"] .edta-toggle__icon--moon{
+  margin-right: 2px !important;
+}
+
+/* Pill: knob (tamaño/posición/animación) */
+.edta-toggle[data-edta="1"][data-style="pill"] .edta-toggle__knob{
+  display: block !important;
+  position: absolute;
+    top: 3px;
+  left: 3px;
+  width: 32px;
+  height: 32px;
+  border-radius: 999px;
+  z-index: 2;
+
+  transform: translateX(0);
+  transition: transform 220ms ease;
+
+  background: #111111;
+  border: 0 !important;
+  box-shadow: none !important;
+  opacity: 1 !important;
+}
+
+/* Posición inicial del knob según pre-clases (antes del paint) */
+html.edta-pre-dark .edta-toggle[data-edta="1"][data-style="pill"] .edta-toggle__knob,
+body.edta-theme-dark .edta-toggle[data-edta="1"][data-style="pill"] .edta-toggle__knob{
+  transform: translateX(34px);
+}
+
+html.edta-pre-light .edta-toggle[data-edta="1"][data-style="pill"] .edta-toggle__knob,
+body.edta-theme-light .edta-toggle[data-edta="1"][data-style="pill"] .edta-toggle__knob{
+  transform: translateX(0);
+}
+
+/* Estado controlado por ARIA (switch) */
+.edta-toggle[data-edta="1"][data-style="pill"][aria-checked="true"] .edta-toggle__knob{
+  transform: translateX(34px);
+}
+
+/* Pill en dark: fondo oscuro + textos/íconos claros */
+body.edta-theme-dark .edta-toggle[data-edta="1"][data-style="pill"]{
+  background: rgba(17, 17, 17, 0.75) !important;
+  color: #ffffff !important;
+}
+
+/* Pill en dark: knob claro (html/body) */
+html.edta-pre-dark .edta-toggle[data-edta="1"][data-style="pill"] .edta-toggle__knob,
+html.edta-theme-dark .edta-toggle[data-edta="1"][data-style="pill"] .edta-toggle__knob,
+body.edta-theme-dark .edta-toggle[data-edta="1"][data-style="pill"] .edta-toggle__knob{
+  background: #ffffff;
+  border: 0 !important;
+  box-shadow: none !important;
+  opacity: 1 !important;
+}
+
+/* Evita animación del knob durante el estado init */
+html.edta-init .edta-toggle[data-edta="1"][data-style="pill"] .edta-toggle__knob{
+  transition: none !important;
+}
+
+/* Fallback por clases de tema ya aplicadas */
+html.edta-theme-dark .edta-toggle[data-edta="1"][data-style="pill"] .edta-toggle__knob{
+  transform: translateX(34px);
+}
+html.edta-theme-light .edta-toggle[data-edta="1"][data-style="pill"] .edta-toggle__knob{
+  transform: translateX(0);
+}
+
+/* Accesibilidad: foco visible mejorado cuando está habilitado */
+html.edta-a11y-focus .edta-toggle:focus-visible {
+  outline: 0;
+  box-shadow: 0 0 0 3px rgba(34, 113, 177, 0.45);
+}

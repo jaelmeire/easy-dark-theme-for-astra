@@ -1,0 +1,904 @@
+/* WP Color Picker (popover): ocultar los inputs default y dejar solo el botón/selector */
+.wp-picker-container.edta-picker-popover .wp-picker-input-wrap,
+.wp-picker-container.edta-picker-popover .wp-picker-default {
+  display: none !important;
+}
+
+/* WP Color Picker (popover): asegurar que el contenedor mantenga su layout inline */
+.wp-picker-container.edta-picker-popover {
+  display: inline-block;
+}
+
+/* Picker flotante: contenedor fijo que admin.js detach/mueve al <body> (se abre/cierra por JS) */
+.edta-floating-holder {
+  position: fixed !important;
+  z-index: 999999;
+  display: none;
+  border-radius: 10px;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.18);
+}
+
+/* Ajuste visual del Iris Picker dentro del holder flotante */
+.edta-floating-holder .iris-picker {
+  border-radius: 10px;
+}
+
+/* Notices dentro del wrapper del plugin */
+.edta-admin-wrap .notice {
+  margin-top: 12px;
+}
+
+/* Layout general: main + sidebar (grid responsive) */
+.edta-admin {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) 320px;
+  gap: 16px;
+  margin-top: 14px;
+}
+
+/* Responsive: colapsar a una sola columna en pantallas chicas */
+@media (max-width: 1100px) {
+  .edta-admin {
+    grid-template-columns: 1fr;
+  }
+}
+
+/* Sidebar sticky: atajos + guía rápida (contenedor completo) */
+.edta-admin__side{
+  position: sticky;
+  top: 48px;
+  align-self: start;
+
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+
+  max-height: calc(100vh - 60px);
+  overflow-y: auto;
+}
+
+/* Sidebar: las cards internas NO son sticky individualmente */
+.edta-card--side{
+  position: static;
+  top: auto;
+  overflow: visible;
+}
+
+/* Separación vertical entre cards del panel principal */
+.edta-admin__main .edta-card {
+  margin-bottom: 16px;
+}
+
+/* Card base: contenedor visual reutilizado (main y sidebar) */
+.edta-card {
+  background: #fff;
+  border: 1px solid #dcdcde;
+  border-radius: 14px;
+  overflow: hidden;
+}
+
+/* Card header: título + acciones */
+.edta-card__header {
+  padding: 12px 14px;
+  border-bottom: 1px solid #f0f0f1;
+  background: linear-gradient(#fff, #fbfbfc);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 10px;
+}
+
+/* Tipografía del título de la card */
+.edta-card__title {
+  margin: 0 !important;
+  padding: 0 !important;
+  font-size: 14px;
+  font-weight: 700;
+  color: #1d2327;
+}
+
+/* Card body: padding consistente */
+.edta-card__body {
+  padding: 14px;
+}
+
+/* WP form-table dentro de cards: ajustes de spacing y separadores */
+.edta-card .form-table {
+  margin-top: 0;
+}
+
+/* Ancho del label (th) para que el formulario quede prolijo */
+.edta-card .form-table th {
+  width: 220px;
+  padding-top: 12px;
+}
+
+/* Espaciado superior para el contenido (td) */
+.edta-card .form-table td {
+  padding-top: 10px;
+}
+
+/* Padding inferior + alineación vertical */
+.edta-card .form-table th,
+.edta-card .form-table td {
+  padding-bottom: 10px;
+  vertical-align: top;
+}
+
+/* Separador entre filas (solo desde la segunda) */
+.edta-card .form-table tr + tr th,
+.edta-card .form-table tr + tr td {
+  border-top: 1px solid #f2f3f5;
+}
+
+/* Sidebar: lista de atajos (links) */
+.edta-side-links {
+  margin: 0;
+  padding-left: 16px;
+}
+
+.edta-side-links li {
+  margin: 6px 0;
+}
+
+.edta-side-links a {
+  text-decoration: none;
+}
+
+/* Texto auxiliar del sidebar */
+.edta-side-hint {
+  margin: 12px 0 0;
+  color: #646970;
+  font-size: 12px;
+}
+
+/* Sidebar: links con iconos (alineación + tamaño) */
+.edta-side-links--icons a {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+}
+
+/* Iconos SVG del sidebar (lucide/inline) */
+.edta-side-ico {
+  width: 14px;
+  height: 14px;
+  stroke: currentColor;
+  fill: none;
+  stroke-width: 2;
+}
+
+/* Submit dentro del main: evitar que quede pegado a la card anterior */
+.edta-admin__main .submit {
+  margin-top: 16px;
+}
+
+/* Botón de ayuda (icono “?”): abre/cierra tooltip (manejado por admin.js) */
+.edta-help {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 18px;
+  height: 18px;
+  margin-left: 6px;
+  border-radius: 999px;
+  border: 1px solid #c3c4c7;
+  background: #f6f7f7;
+  color: #1d2327;
+  cursor: pointer;
+  font-size: 12px;
+  line-height: 1;
+  padding: 0;
+}
+
+/* Reset del outline default (usamos focus-visible) */
+.edta-help:focus {
+  outline: none;
+}
+
+/* Focus visible accesible */
+.edta-help:focus-visible {
+  box-shadow: 0 0 0 2px #2271b1;
+}
+
+/* Tooltip flotante: caja de ayuda posicionada por JS */
+.edta-tooltip {
+  position: fixed;
+  z-index: 1000000;
+  max-width: 320px;
+  padding: 10px 12px;
+  border-radius: 12px;
+  border: 1px solid #dcdcde;
+  background: rgba(255, 255, 255, 0.98);
+  box-shadow: 0 14px 40px rgba(0, 0, 0, 0.14);
+  color: #1d2327;
+  font-size: 12px;
+  line-height: 1.4;
+  display: none;
+}
+
+/* Estado abierto (admin.js agrega/quita la clase) */
+.edta-tooltip.is-open {
+  display: block;
+}
+
+.edta-tooltip__content {
+  margin: 0;
+}
+
+
+/* Controles: modo del toggle (radio group) */
+#edta-control-mode {
+  display: flex;
+  gap: 24px;
+  align-items: center;
+}
+
+/* Evitar márgenes default del admin */
+#edta-control-mode label {
+  margin: 0 !important;
+}
+
+
+/* Controles de posición: esquina + offsets (layout flexible) */
+.edta-pos-controls{
+  display: flex;
+  flex-wrap: wrap;
+  gap: 16px;
+  align-items: flex-start; /* 🔹 todo alineado arriba */
+}
+
+/* Posición: la opción de esquina se mantiene a la izquierda */
+.edta-pos-field:first-child{
+  margin-right: auto;
+}
+
+/* Offsets: inputs alineados a la derecha en desktop */
+.edta-pos-field:not(:first-child){
+  text-align: right;
+}
+
+/* Cada campo (label + input) apilado */
+.edta-pos-field{
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+/* Label de cada campo */
+.edta-pos-label{
+  font-size: 12px;
+  font-weight: 600;
+  color: #646970;
+  margin: 0;
+}
+
+/* Wrapper del input numérico + unidad */
+.edta-pos-input{
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+
+  padding: 2px 10px;
+  border: 1px solid #c3c4c7;
+  border-radius: 12px;
+  background: #fff;
+}
+
+/* Resaltar el wrapper cuando el input interno tiene foco */
+.edta-pos-input:focus-within{
+  border-color: #2271b1;
+  box-shadow: 0 0 0 2px rgba(34,113,177,.15);
+}
+
+/* Input numérico “limpio” (sin borde propio) */
+.edta-pos-number{
+  width: 90px;
+  border: 0 !important;
+  box-shadow: none !important;
+  background: transparent !important;
+  padding: 6px 0 !important;
+  margin: 0 !important;
+}
+
+/* Unidad (px, etc.) */
+.edta-pos-unit{
+  font-size: 12px;
+  color: #646970;
+  user-select: none;
+}
+
+/* Preview del toggle en admin: toolbar + canvas (simula claro/oscuro) */
+.edta-toggle-preview {
+  margin-top: 12px;
+  max-width: 520px;
+
+  /* limitar el bloque al ancho del canvas */
+  width: 260px;
+}
+
+/* Toolbar del preview: label + segmented control */
+.edta-toggle-preview__toolbar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  margin-bottom: 10px;
+  width: 100%;
+}
+
+/* Texto “Preview” */
+.edta-toggle-preview__label {
+  font-weight: 600;
+  color: #1d2327;
+}
+
+/* Selector segmentado (Claro/Oscuro) */
+.edta-toggle-preview__segmented {
+  display: inline-flex;
+  border: 1px solid #dcdcde;
+  border-radius: 999px;
+  overflow: hidden;
+  background: #fff;
+}
+
+/* Botones del segmented control */
+.edta-toggle-preview__segmented .edta-preview-mode {
+  border: 0;
+  background: transparent;
+  padding: 6px 10px;
+  cursor: pointer;
+  font-size: 12px;
+  line-height: 1;
+  color: #1d2327;
+}
+
+/* Estado activo del segmented */
+.edta-toggle-preview__segmented .edta-preview-mode.is-active {
+  background: #1d2327;
+  color: #fff;
+}
+
+/* Canvas del preview (cuadro donde se renderiza el botón) */
+.edta-toggle-preview__canvas {
+  width: 260px;
+  height: 260px;
+  border: 1px solid #dcdcde;
+  border-radius: 14px;
+  background: #fff;
+  display: grid;
+  place-items: center;
+}
+
+/* Canvas “oscuro” del preview */
+.edta-toggle-preview__canvas.is-dark {
+  background: #0f172a;
+  border-color: rgba(255, 255, 255, 0.15);
+}
+
+/* Botón preview: base visual reutilizando el look del frontend */
+.edta-toggle--preview {
+  padding: 0 !important;
+  margin: 0 !important;
+  box-sizing: border-box !important;
+  border: 1px solid rgba(0, 0, 0, 0.15) !important;
+  background: rgba(255, 255, 255, 0.9) !important;
+
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+
+  cursor: pointer;
+  line-height: 1;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+
+  user-select: none;
+  -webkit-tap-highlight-color: transparent;
+
+  color: #111 !important;
+  font-family: ui-sans-serif, system-ui, -apple-system, "Segoe UI", Roboto, Arial, sans-serif;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+}
+
+/* Preview style: “text” */
+.edta-toggle--preview[data-style="text"] {
+  height: 44px;
+  padding: 0 14px !important;
+  border-radius: 999px;
+  font-size: 12px;
+}
+
+/* Preview style: “icon” */
+.edta-toggle--preview[data-style="icon"] {
+  width: 44px;
+  height: 44px;
+  border-radius: 999px;
+  font-size: 0;
+}
+
+/* Tamaño del SVG interno del preview */
+.edta-toggle--preview .edta-ico {
+  width: 20px;
+  height: 20px;
+  display: block;
+  pointer-events: none;
+}
+
+/* Ajustes del botón cuando el canvas está en “oscuro” */
+.edta-toggle-preview__canvas.is-dark .edta-toggle--preview {
+  background: rgba(17, 17, 17, 0.75) !important;
+  border-color: rgba(255, 255, 255, 0.18) !important;
+  color: #f9fafb !important;
+}
+
+
+/* Selector de modo de paletas (radio group) */
+#edta-palette-mode {
+  display: flex;
+  flex-direction: row;
+  gap: 20px;
+}
+
+/* Opción de paleta (radio + icono + texto) */
+#edta-palette-mode .edta-palette-choice {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 8px 10px;
+  border: 1px solid #dcdcde;
+  border-radius: 12px;
+  background: #fff;
+}
+
+/* Ajuste del radio para alinear visualmente */
+#edta-palette-mode .edta-palette-choice input[type="radio"] {
+  margin-top: 0;
+}
+
+/* Tamaño del icono de paleta */
+#edta-palette-mode .edta-ico-palette {
+  width: 18px;
+  height: 18px;
+  flex: 0 0 18px;
+  display: inline-block;
+}
+
+/* Bloqueo de preset: deshabilitar interacción visual en tarjetas de paleta */
+
+body.edta-preset-locked .edta-palette-card {
+  cursor: not-allowed !important;
+}
+
+body.edta-preset-locked .edta-palette-card * {
+  cursor: not-allowed !important;
+}
+
+/* Deshabilitado puntual (solo la grilla light) cuando corresponde */
+#edta-light-palette-grid.edta-is-disabled .edta-palette-card,
+#edta-light-palette-grid.edta-is-disabled .edta-palette-card * {
+  cursor: not-allowed !important;
+}
+
+/* Cabecera de paleta: título + estado (badge) */
+.edta-palette-head {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  margin: 0 0 10px 0;
+}
+
+/* Badge de estado (solo se muestra cuando aplica) */
+.edta-palette-status {
+  font-size: 12px;
+  color: #646970;
+  padding: 4px 8px;
+  border-radius: 999px;
+  border: 1px solid #e5e7eb;
+  background: #fff;
+  display: none; /* se muestra solo cuando aplica */
+}
+
+/* Estado visible del badge */
+.edta-palette-status.is-on {
+  display: inline-flex;
+}
+
+/* Hints antiguos: se mantienen ocultos (legacy) */
+#edta-light-disabled-hint,
+#edta-light-enabled-hint {
+  display: none !important;
+}
+
+/* Input HEX inline dentro de la card */
+.edta-palette-card input.edta-hex-inline {
+  width: 100% !important;
+  box-sizing: border-box;
+  font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
+  font-size: 12px;
+  padding: 6px 8px;
+}
+
+/* Forzar que el color picker ocupe el ancho completo de la card */
+.edta-palette-card .wp-picker-container {
+  width: 100%;
+  display: block;
+}
+
+/* Botón de resultado de WP (swatch) a ancho completo */
+.edta-palette-card .wp-color-result {
+  width: 100% !important;
+  box-sizing: border-box;
+  display: inline-flex;
+  justify-content: center;
+  align-items: center;
+  margin: 0 !important;
+}
+
+/* Texto del botón WP (centrado) */
+.edta-palette-card .wp-color-result-text {
+  width: 100%;
+  text-align: center;
+}
+
+/* Fila de paletas: row full width (td con colspan=2) */
+.edta-row-palettes td {
+  padding-top: 8px;
+}
+
+/* Layout de paletas: 2 columnas (Claro/Oscuro) en desktop; 1 en mobile */
+.edta-palettes-2col {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 28px;
+  align-items: start;
+  max-width: 100%;
+  padding: 12px 0;
+}
+
+/* Responsive: paletas en una sola columna */
+@media (max-width: 980px) {
+  .edta-palettes-2col {
+    grid-template-columns: 1fr;
+    gap: 18px;
+  }
+}
+
+/* Panel por columna: borde + fondo + sombra sutil */
+.edta-palettes-col {
+  position: relative;
+  border: 1px solid #dcdcde;
+  border-radius: 14px;
+  padding: 14px;
+  background: #fff;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.04);
+}
+
+/* Divisor vertical entre columnas (solo desktop) */
+@media (min-width: 981px) {
+  .edta-palettes-col:first-child::after {
+    content: "";
+    position: absolute;
+    top: 14px;
+    bottom: 14px;
+    right: -14px;
+    width: 1px;
+    background: #e5e7eb;
+    opacity: 1;
+  }
+}
+
+/* Mobile: ocultar divisor */
+@media (max-width: 980px) {
+  .edta-palettes-col:first-child::after {
+    display: none;
+  }
+}
+
+/* Títulos de columna (chip) */
+.edta-palettes-title {
+  margin: 0 0 12px 0;
+  font-size: 13px;
+  font-weight: 800;
+  letter-spacing: 0.2px;
+
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+
+  padding: 6px 10px;
+  border-radius: 999px;
+  border: 1px solid #e5e7eb;
+  background: #fff;
+  color: #000;
+}
+
+/* Icono del título */
+.edta-palettes-title .edta-ico {
+  width: 16px;
+  height: 16px;
+  flex: 0 0 16px;
+  display: inline-block;
+  vertical-align: middle;
+}
+
+/* Grilla interna de cada paleta (cards de colores) */
+#edta-light-palette-grid,
+#edta-dark-palette-grid {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 10px;
+}
+
+/* Responsive: bajar a 2 columnas */
+@media (max-width: 980px) {
+  #edta-light-palette-grid,
+  #edta-dark-palette-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}
+
+/* Preset lock: bajar opacidad y desactivar “feel” de interacción */
+body.edta-preset-locked #edta-light-palette-grid,
+body.edta-preset-locked #edta-dark-palette-grid {
+  opacity: 0.6 !important;
+  cursor: default !important;
+}
+
+body.edta-preset-locked #edta-light-palette-grid *,
+body.edta-preset-locked #edta-dark-palette-grid * {
+  cursor: not-allowed !important;
+}
+
+/* Preset lock: cursor not-allowed por tarjeta */
+body.edta-preset-locked #edta-light-palette-grid .edta-palette-card,
+body.edta-preset-locked #edta-dark-palette-grid .edta-palette-card {
+  cursor: not-allowed !important;
+}
+
+/* Preset lock: también forzar not-allowed en elementos internos */
+body.edta-preset-locked #edta-light-palette-grid .edta-palette-card *,
+body.edta-preset-locked #edta-dark-palette-grid .edta-palette-card * {
+  cursor: not-allowed !important;
+}
+
+/* Sidebar: bloque de guardado rápido (botón + indicador de cambios) */
+.edta-side-savebar {
+  margin-top: 12px;
+  padding-top: 12px;
+  border-top: 1px solid #f2f3f5;
+  display: grid;
+  gap: 8px;
+}
+
+/* Botón “Guardar cambios” en sidebar: estados de cursor */
+#edta-side-save {
+  cursor: pointer;
+}
+
+#edta-side-save:disabled {
+  cursor: not-allowed;
+}
+
+/* Indicador “hay cambios sin guardar” */
+.edta-unsaved {
+  display: inline-flex;
+  font-size: 12px;
+  color: #646970;
+}
+
+/* Estado “dirty” (cuando hay cambios) */
+.edta-unsaved.is-dirty {
+  color: #b32d2e;
+  font-weight: 600;
+}
+
+/* Icono info estático (solo visual, no interactivo) */
+.edta-help--static {
+  cursor: default;
+  pointer-events: none;
+  user-select: none;
+  margin: 0 4px;
+}
+
+
+/* Variante preview: estilo “pill” (switch con knob) */
+.edta-toggle--preview[data-style="pill"]{
+  width: 75px;
+  height: 40px;
+  padding: 4px !important;
+  border-radius: 999px;
+
+  display: inline-flex;
+  align-items: center;
+  justify-content: space-between;
+  
+  overflow: hidden;
+  font-size: 0;
+  letter-spacing: 0;
+}
+
+/* En “pill”, el texto se oculta */
+.edta-toggle--preview[data-style="pill"] .edta-toggle-preview__text{
+  display: none !important;
+}
+
+/* En “pill”, los iconos quedan visibles */
+.edta-toggle--preview[data-style="pill"] .edta-toggle-preview__icon{
+  display: inline-flex !important;
+  width: 28px;
+  height: 28px;
+  align-items: center;
+  justify-content: center;
+  opacity: 0.92;
+  z-index: 1;
+}
+
+/* “Knob” del switch (posicionado absoluto) */
+.edta-toggle--preview[data-style="pill"] .edta-toggle__knob{
+  display: block !important;
+  position: absolute;
+  top: 3px;
+  left: 3px;
+  width: 32px;
+  height: 32px;
+  border-radius: 999px;
+  z-index: 2;
+
+  transform: translateX(0);
+  transition: transform 220ms ease;
+
+  background: #111111;
+  border: 0 !important;
+  box-shadow: none !important;
+  opacity: 1 !important;
+}
+
+/* “Pill” sobre canvas oscuro */
+.edta-toggle-preview__canvas.is-dark .edta-toggle--preview[data-style="pill"]{
+  background: rgba(17, 17, 17, 0.75) !important;
+  color: #ffffff !important;
+}
+
+/* Knob claro sobre canvas oscuro */
+.edta-toggle-preview__canvas.is-dark .edta-toggle--preview[data-style="pill"] .edta-toggle__knob{
+  background: #ffffff;
+  border: 0 !important;
+  box-shadow: none !important;
+  opacity: 1 !important;
+}
+
+/* Estado on: desplazar knob */
+.edta-toggle--preview[data-style="pill"][aria-checked="true"] .edta-toggle__knob{
+  transform: translateX(34px);
+}
+
+/* Inicialización: evitar animación al primer render */
+.edta-toggle--preview.edta-init[data-style="pill"] .edta-toggle__knob{
+  transition: none !important;
+}
+
+/* Custom CSS: textarea para CSS adicional (se guarda en settings) */
+#edta-custom-css{
+  width: 100%;
+  max-width: none;
+  box-sizing: border-box;
+  min-height: 140px;
+  resize: vertical;
+  font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
+  font-size: 12px;
+  line-height: 1.45;
+  padding: 10px 12px;
+}
+
+/* Sidebar: hover + estado activo (scrollspy) */
+.edta-side-links a {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 6px 8px;
+  border-radius: 10px;
+  color: #1d2327;
+}
+
+/* Hover del link */
+.edta-side-links a:hover {
+  background: #f6f7f7;
+}
+
+/* Estado activo (se actualiza por JS con scrollspy) */
+.edta-side-links a.is-active {
+  background: rgba(34, 113, 177, 0.10);
+  box-shadow: inset 0 0 0 1px rgba(34, 113, 177, 0.25);
+}
+
+/* Botones: micro-interacciones (hover/active) en admin */
+.edta-admin-wrap .button,
+.edta-admin-wrap .button-primary,
+.edta-admin-wrap .button-secondary {
+  transition: transform 120ms ease, box-shadow 120ms ease, filter 120ms ease;
+}
+
+/* Hover: levantar apenas */
+.edta-admin-wrap .button:hover {
+  transform: translateY(-1px);
+}
+
+/* Active: volver a cero + leve oscurecido */
+.edta-admin-wrap .button:active {
+  transform: translateY(0);
+  filter: brightness(0.98);
+}
+
+/* Guía rápida / FAQ: accordion en sidebar (toggle manejado por admin.js) */
+.edta-card--side-secondary {
+  margin-top: 12px;
+  position: static; /* NO sticky, queda debajo */
+}
+
+/* Texto dentro de la FAQ */
+.edta-faq p {
+  color: #1d2327;
+}
+
+/* Lista de links mini dentro de la guía */
+.edta-mini-links {
+  margin: 8px 0 0;
+  padding-left: 18px;
+}
+
+/* Links dentro de la guía */
+.edta-mini-links a {
+  text-decoration: none;
+}
+
+/* Hover links guía */
+.edta-mini-links a:hover {
+  text-decoration: underline;
+}
+
+/* Item del accordion */
+.edta-guide__item {
+  border-top: 1px solid #f0f0f1;
+}
+
+/* Botón toggle del accordion */
+.edta-guide__toggle {
+  width: 100%;
+  background: transparent;
+  border: 0;
+  text-align: left;
+  padding: 10px 0;
+  font-weight: 600;
+  font-size: 12px;
+  cursor: pointer;
+  position: relative;
+}
+
+/* Chevron del accordion */
+.edta-guide__toggle::after {
+  content: "▸";
+  position: absolute;
+  right: 0;
+  transition: transform .2s ease;
+}
+
+/* Estado abierto: rotar chevron */
+.edta-guide__item.is-open .edta-guide__toggle::after {
+  transform: rotate(90deg);
+}
+
+/* Contenido colapsable */
+.edta-guide__content {
+  display: none;
+  padding: 0 0 10px 0;
+  font-size: 12px;
+  color: #646970;
+}
+
+/* Estado abierto: mostrar contenido */
+.edta-guide__item.is-open .edta-guide__content {
+  display: block;
+}
