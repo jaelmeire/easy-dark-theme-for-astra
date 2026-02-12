@@ -3,7 +3,7 @@
  * Plugin Name:       Easy Dark Theme for Astra
  * Plugin URI:        https://wordpress.org/plugins/easy-dark-theme-for-astra/
  * Description:       Light/dark mode for Astra with a toggle button (floating, widget, shortcode) and palette mapping to Astra Global Colors.
- * Version:           0.1.0
+ * Version:           0.1.1
  * Requires at least: 6.0
  * Requires PHP:      8.0
  * Author:            Jael Meire

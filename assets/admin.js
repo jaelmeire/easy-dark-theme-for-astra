@@ -58,6 +58,7 @@
   } // Fin de positionFloatingNearButton()
 
   let $activeContainer = null; // Contenedor .wp-picker-container actualmente abierto.
+  let lastPaletteMode = null; // Recuerda el modo anterior para no pisar data-edta-custom al cargar.
 
   // Obtiene el holder flotante asociado a un container (si existe).
   function getFloat($container) {
@@ -270,13 +271,16 @@
     setPresetLockUI(mode === "free");
 
     if (mode === "free") {
-        // Guarda los custom actuales antes de sobreescribir con el preset.
+      // Solo se guarda custom si viene de custom (switch en vivo).
+      if (lastPaletteMode === "custom") {
         syncCustomFromUI();
+      }
 
-        applyPaletteToUI("light", presetLight, true);
-        applyPaletteToUI("dark", presetDark, true);
+      applyPaletteToUI("light", presetLight, true);
+      applyPaletteToUI("dark", presetDark, true);
 
-        return;
+      lastPaletteMode = mode;
+      return;
     }
 
     // En modo custom, restaura y habilita edición.
@@ -288,6 +292,8 @@
     // Respeta el lock de la paleta light cuando "use theme light" está activo.
     const $checkbox = $("#edta-use-theme-light");
     if ($checkbox.length) setLightPaletteDisabled($checkbox.is(":checked"));
+
+    lastPaletteMode = mode;
   } // Fin de applyPaletteModeUI()
 
   // Lee los valores actuales de la grilla (light/dark) desde los inputs del picker.
@@ -914,8 +920,24 @@
 
   // Inicializa el acordeón de la guía rápida cuando el DOM está listo.
   document.addEventListener("DOMContentLoaded", initGuideAccordion);
-  // Punto de entrada principal del admin.js (cuando jQuery está listo).
+
+  // Boot
   $(function () {
+    
+    // Toggle: deshabilita la paleta Light cuando se respetan colores del theme.
+    const $checkbox = $("#edta-use-theme-light");
+    if ($checkbox.length) {
+      setLightPaletteDisabled($checkbox.is(":checked"));
+    }
+
+    // Selector de modo de paleta (free/custom) + lock UI asociado.
+    const $pm = $("#edta-palette-mode");
+    if ($pm.length) {
+      lastPaletteMode = getPaletteMode();
+      applyPaletteModeUI();
+      refreshLockStates();
+    }
+
     initColorPickers();
 
     // Maneja el estado visual/disabled de la UI según el modo de control.
@@ -931,26 +953,20 @@
       $radios.on("change", function () { setControlModeUI(getMode()); });
     }
 
-    // Toggle: deshabilita la paleta Light cuando se respetan colores del theme.
-    const $checkbox = $("#edta-use-theme-light");
+    // Evitar parpadeo del evento.
     if ($checkbox.length) {
-      setLightPaletteDisabled($checkbox.is(":checked"));
       $checkbox.on("change", function () {
         setLightPaletteDisabled($checkbox.is(":checked"));
+        refreshLockStates();
       });
     }
 
-    // Selector de modo de paleta (free/custom) + lock UI asociado.
-    const $pm = $("#edta-palette-mode");
+    // Evitar parpadeo del evento.
     if ($pm.length) {
       $pm.find('input[type="radio"]').on("change", function () {
         applyPaletteModeUI();
         refreshLockStates();
       });
-
-      // Estado inicial al cargar.
-      applyPaletteModeUI();
-      refreshLockStates();
     }
 
     // Inicializa la previsualización del toggle en el admin.

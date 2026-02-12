@@ -4,7 +4,7 @@ Tags: astra, dark mode, light mode, theme toggle, color scheme, global colors
 Requires at least: 6.0
 Tested up to: 6.9
 Requires PHP: 8.0
-Stable tag: 0.1.0
+Stable tag: 0.1.1
 License: GPLv2 or later
 License URI: https://www.gnu.org/licenses/gpl-2.0.html
 
@@ -49,9 +49,16 @@ Main features:
   * Export settings to JSON
   * Import settings from JSON
   * Reset settings to defaults (with confirmation)
+* Admin UX improvements:
+  * Reduced flicker on initial load (palette + lock state handling)
+  * Improved state synchronization for preset/custom palettes
+  * Improved save-state detection in sidebar
 
 Notes:
 * This plugin is intended for Astra themes. If Astra is not active, the plugin’s frontend output is disabled. The admin page remains available.
+
+Plugin page:
+https://wordpress.org/plugins/easy-dark-theme-for-astra/
 
 == Installation ==
 
@@ -108,6 +115,13 @@ No. You should set your site colors using Astra Global Colors (Customizer). The 
 
 == Changelog ==
 
+= 0.1.1 =
+* Updated plugin URL to official WordPress.org page.
+* Improved admin UI initialization to reduce palette flicker.
+* Improved preset/custom palette state handling.
+* Improved palette lock behavior consistency.
+* Minor admin UX refinements and code cleanup.
+
 = 0.1.0 =
 * Initial release:
   * Auto/system mode and Button mode
@@ -123,5 +137,5 @@ No. You should set your site colors using Astra Global Colors (Customizer). The 
 
 == Upgrade Notice ==
 
-= 0.1.0 =
-Initial release.
+= 0.1.1 =
+Minor improvements and admin UX refinements.

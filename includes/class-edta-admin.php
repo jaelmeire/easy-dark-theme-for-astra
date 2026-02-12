@@ -4,6 +4,7 @@ if (!defined('ABSPATH')) {
 }
 
 final class EDTA_Admin {
+
   public const OPTION_KEY = 'edta_astra_settings'; // Clave donde se almacenan los ajustes del plugin.
   private const EDTA_PALETTE_SIZE = 9; // Cantidad de colores usados para Astra Global Colors.
 
@@ -90,6 +91,8 @@ final class EDTA_Admin {
 
   // Inicializa hooks del panel admin.
   public function init(): void {
+    add_filter('admin_body_class', [$this, 'admin_body_class']); // Aplica clases iniciales.
+
     add_action('admin_menu', [$this, 'register_menu']); // Registra menú del plugin.
     add_action('admin_init', [$this, 'register_settings']); // Registra settings.
     add_action('admin_enqueue_scripts', [$this, 'enqueue_assets']); // Encola assets del admin.
@@ -99,6 +102,24 @@ final class EDTA_Admin {
     add_action('admin_post_edta_import_settings', [$this, 'handle_import_settings']); // Handler importar ajustes.
     add_action('admin_post_edta_reset_settings',  [$this, 'handle_reset_settings']);  // Handler resetear ajustes.
   } // Fin de EDTA_Admin::init()
+
+  public function admin_body_class(string $classes): string {
+    // Solo en la pantalla del plugin.
+    $screen = function_exists('get_current_screen') ? get_current_screen() : null;
+    if (!$screen || empty($screen->id)) return $classes;
+
+    // Ajustá este check al screen id real de la página.
+    if (strpos($screen->id, 'edta') === false) return $classes;
+
+    $opts = get_option('edta_settings', []);
+    $palette_mode = isset($opts['palette_mode']) ? (string) $opts['palette_mode'] : 'free';
+
+    if ($palette_mode === 'free') {
+      $classes .= ' edta-preset-locked';
+    }
+
+    return $classes;
+  } // Fin de EDTA_Admin::admin_body_class()
 
   // Registra el menú principal del plugin en el admin.
   public function register_menu(): void {
@@ -411,7 +432,15 @@ final class EDTA_Admin {
     echo '</td></tr>';
 
     $custom_light = is_array($settings['light_palette'] ?? null) ? $settings['light_palette'] : $defaults['light_palette'];
-    $custom_dark  = is_array($settings['dark_palette'] ?? null) ? $settings['dark_palette'] : $defaults['dark_palette'];
+    $custom_dark = is_array($settings['dark_palette'] ?? null) ? $settings['dark_palette'] : $defaults['dark_palette'];
+
+    $is_free = ($palette_mode === 'free');
+
+    $free_light = $this->free_light_palette();
+    $free_dark  = $this->free_dark_palette();
+
+    $display_light = $is_free ? $free_light : $custom_light;
+    $display_dark  = $is_free ? $free_dark  : $custom_dark;
 
     $disabled_light = $use_theme_light;
 
@@ -437,12 +466,13 @@ final class EDTA_Admin {
       echo '<span id="edta-light-lock-badge" class="edta-palette-status" aria-live="polite"></span>';
     echo '</div>';
 
-    $disabled_light = $use_theme_light;
+    $disabled_light = $use_theme_light || $is_free;
     echo '<div id="edta-light-palette-grid" data-edta-disabled="' . ($disabled_light ? '1' : '0') . '">';
 
     // Renderiza inputs de paleta light.
     for ($i = 0; $i < self::EDTA_PALETTE_SIZE; $i++) {
-      $val = $custom_light[$i] ?? '#000000';
+      $val = $display_light[$i] ?? '#000000';
+      $custom_val = $custom_light[$i] ?? $val;
       $role = $this->astra_role_for_index($i);
       $field_name = self::OPTION_KEY . '[light_palette][' . $i . ']';
 
@@ -456,13 +486,13 @@ final class EDTA_Admin {
       echo '</div>';
 
       echo '<input type="text" class="edta-hex-inline edta-hex-light" ' . ($disabled_light ? 'disabled' : '') .
-        ' value="' . esc_attr($val) . '" data-edta-hex="1" data-edta-custom="' . esc_attr($val) . '" style="width:120px;margin:0 0 8px 0;" />';
+        ' value="' . esc_attr($val) . '" data-edta-hex="1" data-edta-custom="' . esc_attr($custom_val) . '" style="width:120px;margin:0 0 8px 0;" />';
 
       echo '<input class="edta-color-field edta-light-input wp-color-picker" type="text" ' . ($disabled_light ? 'disabled' : '') .
         ' name="' . esc_attr($field_name) . '"' .
         ' value="' . esc_attr($val) . '"' .
         ' data-default-color="' . esc_attr($val) . '"' .
-        ' data-edta-custom="' . esc_attr($val) . '"' .
+        ' data-edta-custom="' . esc_attr($custom_val) . '"' .
         ' style="width:120px;" />';
 
       echo '</div></div>';
@@ -489,7 +519,8 @@ final class EDTA_Admin {
 
     // Renderiza inputs de paleta dark.
     for ($i = 0; $i < self::EDTA_PALETTE_SIZE; $i++) {
-      $val = $custom_dark[$i] ?? '#000000';
+      $val = $display_dark[$i] ?? '#000000';
+      $custom_val = $custom_dark[$i] ?? $val;
       $role = $this->astra_role_for_index($i);
       $field_name = self::OPTION_KEY . '[dark_palette][' . $i . ']';
 
@@ -502,13 +533,13 @@ final class EDTA_Admin {
       echo '  <div style="font-size:12px;color:#646970;"><code>--ast-global-color-' . (int) $i . '</code></div>';
       echo '</div>';
 
-      echo '<input type="text" class="edta-hex-inline edta-hex-dark" value="' . esc_attr($val) . '" data-edta-hex="1" data-edta-custom="' . esc_attr($val) . '" style="width:120px;margin:0 0 8px 0;" />';
+      echo '<input type="text" class="edta-hex-inline edta-hex-dark" value="' . esc_attr($val) . '" data-edta-hex="1" data-edta-custom="' . esc_attr($custom_val) . '" style="width:120px;margin:0 0 8px 0;" />';
 
       echo '<input class="edta-color-field edta-dark-input wp-color-picker" type="text"' .
         ' name="' . esc_attr($field_name) . '"' .
         ' value="' . esc_attr($val) . '"' .
         ' data-default-color="' . esc_attr($val) . '"' .
-        ' data-edta-custom="' . esc_attr($val) . '"' .
+        ' data-edta-custom="' . esc_attr($custom_val) . '"' .
         ' style="width:120px;" />';
 
       echo '</div></div>';
@@ -948,7 +979,6 @@ final class EDTA_Admin {
 
     return wp_parse_args($out, $defaults); // Completa cualquier clave faltante con defaults.
   } // Fin de EDTA_Admin::sanitize_settings()
-
 
   // Sanitiza un array de paleta asegurando tamaño y formato HEX válido.
   private function sanitize_palette_array($value, array $fallback): array {
