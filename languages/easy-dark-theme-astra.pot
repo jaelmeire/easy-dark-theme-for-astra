@@ -183,7 +183,7 @@ msgid "Herramientas"
 msgstr ""
 
 #. URI of the plugin
-msgid "https://easy-dark-theme-for-astra.vercel.app/"
+msgid "https://wordpress.org/plugins/easy-dark-theme-for-astra/"
 msgstr ""
 
 #. Author URI of the plugin
