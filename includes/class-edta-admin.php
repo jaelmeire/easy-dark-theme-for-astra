@@ -35,7 +35,16 @@ final class EDTA_Admin {
 
   // Renderiza botón de ayuda asociado a un tooltip del panel.
   private function help_button(string $key): string {
-    return '<button type="button" class="edta-help" data-edta-tip="' . esc_attr($key) . '" aria-label="' . esc_attr__('Información', 'easy-dark-theme-for-astra') . '">i</button>';
+    $html = '<button type="button" class="edta-help" data-edta-tip="' . esc_attr($key) . '" aria-label="' . esc_attr__('Información', 'easy-dark-theme-for-astra') . '">i</button>';
+
+    return wp_kses($html, [
+      'button' => [
+        'type' => true,
+        'class' => true,
+        'data-edta-tip' => true,
+        'aria-label' => true,
+      ],
+    ]);
   } // Fin de EDTA_Admin::help_button()
 
   // Devuelve SVG del ícono de sol (modo claro).
@@ -111,7 +120,7 @@ final class EDTA_Admin {
     // Ajustá este check al screen id real de la página.
     if (strpos($screen->id, 'edta') === false) return $classes;
 
-    $opts = get_option('edta_settings', []);
+    $opts = get_option(self::OPTION_KEY, []);
     $palette_mode = isset($opts['palette_mode']) ? (string) $opts['palette_mode'] : 'free';
 
     if ($palette_mode === 'free') {
@@ -177,17 +186,19 @@ final class EDTA_Admin {
       'no_changes' => esc_html__('Sin cambios', 'easy-dark-theme-for-astra'),
     ]);
 
-    // Pasa etiqueta del toggle al frontend.
-    wp_localize_script('edta-frontend', 'EDTA_I18N', [
-      'toggle_label' => esc_html__('Cambiar tema', 'easy-dark-theme-for-astra'),
-    ]);
-
     // Expone paletas free para previews del admin.
     wp_add_inline_script('edta-admin', 'window.EDTA_PRESET_1 = ' . wp_json_encode([
       'light' => $this->free_light_palette(),
       'dark' => $this->free_dark_palette(),
     ]) . ';', 'before');
   
+    // Expone tooltips al JS del admin.
+    wp_add_inline_script(
+      'edta-admin',
+      'window.EDTA_ADMIN_TIPS = ' . wp_json_encode($this->get_tooltips()) . ';',
+      'before'
+    );
+
     // Expone SVGs del toggle para previews del admin.
     wp_add_inline_script('edta-admin', 'window.EDTA_TOGGLE_ICONS = ' . wp_json_encode([
       'sun' => $this->icon_sun_svg(),
@@ -207,15 +218,11 @@ final class EDTA_Admin {
     $msg = isset($_GET['edta_msg']) ? sanitize_text_field((string) $_GET['edta_msg']) : '';
     $err = isset($_GET['edta_err']) ? sanitize_text_field((string) $_GET['edta_err']) : '';
 
-    // Prepara tooltips para el panel (usados por admin.js).
-    $tooltips = $this->get_tooltips();
+    // Tooltips: se exponen en enqueue_assets() vía wp_add_inline_script().
 
     // Renderiza contenedor principal del admin.
     echo '<div class="wrap edta-admin-wrap">';
     echo '<h1>' . esc_html__('Easy Dark Theme for Astra', 'easy-dark-theme-for-astra') . '</h1>';
-
-    // Expone tooltips al JS del admin.
-    echo '<script>window.EDTA_ADMIN_TIPS=' . wp_json_encode($tooltips) . ';</script>';
 
     // Renderiza notices según parámetros de URL.
     if ($msg) {
@@ -363,7 +370,7 @@ final class EDTA_Admin {
 
     echo '<table class="form-table" role="presentation"><tbody>';
     echo '<tr>';
-    echo '  <th scope="row">Transición ' . $this->help_button('enable_transitions') . '</th>';
+    echo '  <th scope="row">Transición ' . wp_kses( $this->help_button('enable_transitions'), array( 'button' => array( 'type' => true, 'class' => true, 'data-edta-tip' => true, 'aria-label' => true ) ) ) . '</th>';
     echo '  <td>';
     echo '    <label>';
     echo '      <input type="checkbox" name="' . esc_attr(self::OPTION_KEY) . '[enable_transitions]" value="1" ' . checked(!empty($settings['enable_transitions']), true, false) . ' />';
@@ -467,7 +474,7 @@ final class EDTA_Admin {
     echo '</div>';
 
     $disabled_light = $use_theme_light || $is_free;
-    echo '<div id="edta-light-palette-grid" data-edta-disabled="' . ($disabled_light ? '1' : '0') . '">';
+    echo '<div id="edta-light-palette-grid" data-edta-disabled="' . esc_attr($disabled_light ? '1' : '0') . '">';
 
     // Renderiza inputs de paleta light.
     for ($i = 0; $i < self::EDTA_PALETTE_SIZE; $i++) {
@@ -760,6 +767,7 @@ final class EDTA_Admin {
     nocache_headers();
     header('Content-Type: application/json; charset=utf-8');
     header('Content-Disposition: attachment; filename=edta-settings-' . gmdate('Ymd-His') . '.json');
+    // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped -- JSON export download, not HTML output.
     echo $json ? $json : '{}';
     exit;
   } // Fin de EDTA_Admin::handle_export_settings()

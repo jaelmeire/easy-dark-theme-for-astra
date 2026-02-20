@@ -31,14 +31,14 @@ final class EDTA_Frontend {
 
     // Inyecta configuración del plugin para consumo del script frontend.
     wp_add_inline_script('edta-frontend', 'window.EDTA_CONFIG = ' . wp_json_encode([
-      'controlMode'      => (string)($settings['control_mode'] ?? 'auto'),
-      'defaultMode'      => (string)($settings['default_mode'] ?? 'system'),
-      'remember'         => !empty($settings['remember_mode']),
-      'toggleStyle'      => (string)($settings['toggle_style'] ?? 'pill'),
-      'togglePosition'   => (string)($settings['toggle_position'] ?? 'br'),
-      'toggleOffsetX'    => (int)($settings['toggle_offset_x'] ?? 18),
-      'toggleOffsetY'    => (int)($settings['toggle_offset_y'] ?? 18),
-      'toggleVisibility' => (string)($settings['toggle_visibility'] ?? 'show_all'),
+      'controlMode'       => (string)($settings['control_mode'] ?? 'auto'),
+      'defaultMode'       => (string)($settings['default_mode'] ?? 'system'),
+      'remember'          => !empty($settings['remember_mode']),
+      'toggleStyle'       => (string)($settings['toggle_style'] ?? 'pill'),
+      'togglePosition'    => (string)($settings['toggle_position'] ?? 'br'),
+      'toggleOffsetX'     => (int)($settings['toggle_offset_x'] ?? 18),
+      'toggleOffsetY'     => (int)($settings['toggle_offset_y'] ?? 18),
+      'toggleVisibility'  => (string)($settings['toggle_visibility'] ?? 'show_all'),
       'enableTransitions' => !empty($settings['enable_transitions']),
       'a11yReduceMotion'  => !empty($settings['a11y_reduce_motion']),
       'a11yFocusRing'     => !empty($settings['a11y_focus_ring']),
@@ -77,76 +77,86 @@ final class EDTA_Frontend {
   // Imprime script temprano para definir el modo antes del render y evitar parpadeo visual.
   public function print_early_mode_script(): void {
     $settings = $this->get_settings(); // Obtiene ajustes actuales.
+
+    // Si no se requiere frontend, no imprime nada.
+    if (!$this->should_enqueue_frontend_assets($settings)) {
+      return;
+    }
+
+    // Evita duplicar el script temprano si ya fue procesado.
+    static $done = false;
+    if ($done) return;
+    $done = true;
+
     $control  = (string)($settings['control_mode'] ?? 'auto'); // Modo de control (auto o botón).
     $default  = (string)($settings['default_mode'] ?? 'system'); // Modo por defecto.
     $remember = !empty($settings['remember_mode']); // Indica si se recuerda el modo elegido.
-    ?>
-    <script>
-      (function () {
-        try {
-          var controlMode = <?php echo wp_json_encode($control); ?>;
-          var defaultMode = <?php echo wp_json_encode($default); ?>;
-          var remember = <?php echo $remember ? 'true' : 'false'; ?>;
-          var KEY = "edta_theme_mode";
 
-          // Detecta preferencia del sistema operativo.
-          function prefersDark() {
-            return window.matchMedia && window.matchMedia("(prefers-color-scheme: dark)").matches;
-          }
+    // Registra/enfila un handle temprano (debe existir assets/early.js).
+    if (!wp_script_is('edta-frontend-early', 'registered')) {
+      wp_register_script('edta-frontend-early', EDTA_PLUGIN_URL . 'assets/early.js', [], EDTA_VERSION, false);
+    }
+    if (!wp_script_is('edta-frontend-early', 'enqueued')) {
+      wp_enqueue_script('edta-frontend-early');
+    }
 
-          // Resuelve modo automático según ajustes o sistema.
-          function resolveAuto() {
-            if (defaultMode === "light" || defaultMode === "dark") return defaultMode;
-            return prefersDark() ? "dark" : "light";
-          }
+    // Construye el script temprano (misma lógica que antes).
+    $early = '(function () {'
+      . 'try {'
+        . 'var controlMode = ' . wp_json_encode($control) . ';'
+        . 'var defaultMode = ' . wp_json_encode($default) . ';'
+        . 'var remember = ' . ($remember ? 'true' : 'false') . ';'
+        . 'var KEY = "edta_theme_mode";'
 
-          // Resuelve modo del botón usando localStorage si está habilitado.
-          function resolveButton() {
-            if (remember) {
-              try {
-                var saved = localStorage.getItem(KEY);
-                if (saved === "light" || saved === "dark") return saved;
-              } catch (e) {}
-            }
-            return resolveAuto();
-          }
+        . 'function prefersDark(){'
+          . 'return window.matchMedia && window.matchMedia("(prefers-color-scheme: dark)").matches;'
+        . '}'
 
-          // Determina el modo inicial.
-          var mode = (controlMode === "button") ? resolveButton() : resolveAuto();
+        . 'function resolveAuto(){'
+          . 'if(defaultMode==="light"||defaultMode==="dark") return defaultMode;'
+          . 'return prefersDark() ? "dark" : "light";'
+        . '}'
 
-          var docEl = document.documentElement;
-          if (docEl) {
-            // Estado temprano aplicado al elemento html (antes del paint).
-            docEl.classList.remove(
-              "edta-theme-light","edta-theme-dark",
-              "edta-pre-light","edta-pre-dark",
-              "edta-init"
-            );
+        . 'function resolveButton(){'
+          . 'if(remember){'
+            . 'try{'
+              . 'var saved = localStorage.getItem(KEY);'
+              . 'if(saved==="light"||saved==="dark") return saved;'
+            . '}catch(e){}'
+          . '}'
+          . 'return resolveAuto();'
+        . '}'
 
-            docEl.classList.add(mode === "dark" ? "edta-theme-dark" : "edta-theme-light");
-            docEl.classList.add(mode === "dark" ? "edta-pre-dark"  : "edta-pre-light");
-            docEl.classList.add("edta-init");
+        . 'var mode = (controlMode==="button") ? resolveButton() : resolveAuto();'
+        . 'var docEl = document.documentElement;'
 
-            // Ajusta color-scheme del navegador.
-            try { docEl.style.colorScheme = (mode === "dark" ? "dark" : "light"); } catch (e) {}
+        . 'if(docEl){'
+          . 'docEl.classList.remove("edta-theme-light","edta-theme-dark","edta-pre-light","edta-pre-dark","edta-init");'
+          . 'docEl.classList.add(mode==="dark" ? "edta-theme-dark" : "edta-theme-light");'
+          . 'docEl.classList.add(mode==="dark" ? "edta-pre-dark" : "edta-pre-light");'
+          . 'docEl.classList.add("edta-init");'
+          . 'try{ docEl.style.colorScheme = (mode==="dark" ? "dark" : "light"); }catch(e){}'
+        . '}'
 
-          }
+        . 'function applyToBody(){'
+          . 'if(!document.body) return false;'
+          . 'document.body.classList.remove("edta-theme-light","edta-theme-dark");'
+          . 'document.body.classList.add(mode==="dark" ? "edta-theme-dark" : "edta-theme-light");'
+          . 'return true;'
+        . '}'
 
-          // Aplica clases al body cuando esté disponible.
-          function applyToBody() {
-            if (!document.body) return false;
-            document.body.classList.remove("edta-theme-light", "edta-theme-dark");
-            document.body.classList.add(mode === "dark" ? "edta-theme-dark" : "edta-theme-light");
-            return true;
-          }
+        . 'if(!applyToBody()){'
+          . 'document.addEventListener("DOMContentLoaded", applyToBody, { once:true });'
+        . '}'
+      . '} catch(e){}'
+    . '})();';
 
-          if (!applyToBody()) {
-            document.addEventListener("DOMContentLoaded", applyToBody, { once: true });
-          }
-        } catch (e) {}
-      })();
-    </script>
-    <?php
+    // Inyecta inline ANTES del archivo early.js.
+    wp_add_inline_script('edta-frontend-early', $early, 'before');
+
+    // Fuerza impresión inmediata en wp_head (prioridad 0) para evitar flicker.
+    wp_print_scripts('edta-frontend-early');
+
   } // Fin de EDTA_Frontend::print_early_mode_script()
 
   // Genera CSS para mapear paletas light/dark a Astra Global Colors.
@@ -421,7 +431,7 @@ if (!class_exists('EDTA_Toggle_Widget')) {
 
     // Renderiza el contenido del widget en el frontend.
     public function widget($args, $instance) {
-      echo $args['before_widget'] ?? ''; // Renderiza wrapper inicial del widget.
+      echo wp_kses_post($args['before_widget'] ?? ''); // Renderiza wrapper inicial del widget.
 
       static $merged_settings = null;
 
@@ -438,10 +448,11 @@ if (!class_exists('EDTA_Toggle_Widget')) {
 
       // Renderiza el toggle solo si el modo botón está activo.
       if ((string)($merged_settings['control_mode'] ?? 'auto') === 'button') {
+        // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped -- Safe markup generated internally (includes SVG).
         echo EDTA_Frontend::render_inline_toggle_markup($merged_settings);
       }
 
-      echo $args['after_widget'] ?? ''; // Renderiza wrapper final del widget.
+      echo wp_kses_post($args['after_widget'] ?? ''); // Renderiza wrapper final del widget.
     } // Fin de EDTA_Toggle_Widget::widget()
 
   }

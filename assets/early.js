@@ -1,0 +1,1 @@
+// EDTA early mode placeholder (logic injected inline).

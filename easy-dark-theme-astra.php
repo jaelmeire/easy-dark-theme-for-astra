@@ -20,7 +20,7 @@ if (!defined('ABSPATH')) {
   exit; // Evita acceso directo al archivo.
 }
 
-define('EDTA_VERSION', '0.1.0'); // Versión actual del plugin.
+define('EDTA_VERSION', '0.1.1'); // Versión actual del plugin.
 define('EDTA_PLUGIN_FILE', __FILE__); // Archivo principal del plugin.
 define('EDTA_PLUGIN_DIR', plugin_dir_path(__FILE__)); // Ruta absoluta al directorio del plugin.
 define('EDTA_PLUGIN_URL', plugin_dir_url(__FILE__)); // URL base del plugin.
