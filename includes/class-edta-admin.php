@@ -28,7 +28,6 @@ final class EDTA_Admin {
       'export_settings' => 'Genera un archivo JSON con tu configuración actual para guardarla o moverla a otro sitio.',
       'import_settings' => 'Carga un archivo JSON exportado previamente y aplica esa configuración en este sitio.',
       'reset' => 'Restaura la configuración del plugin a valores por defecto. Requiere confirmación para evitar resets accidentales.',
-      'custom_css' => 'CSS adicional aplicado al switch. Si pegás reglas completas (con llaves), se inyecta tal cual. Si pegás solo propiedades (ej: "border-radius: 999px;"), se envuelve automáticamente en .edta-toggle{...}.',
       'accessibility' => 'Opciones para mejorar accesibilidad (respeto de reduced-motion, foco visible, etc.). Recomendado dejarlo activado.',
     ];
   } // Fin de EDTA_Admin::get_tooltips()
@@ -383,27 +382,6 @@ final class EDTA_Admin {
     echo '  </div>';
     echo '</section>';
 
-    // Renderiza card: CSS personalizado.
-    echo '<section class="edta-card" id="edta-sec-custom-css">';
-    echo '  <div class="edta-card__header"><h2 class="edta-card__title">' . esc_html__('CSS personalizado', 'easy-dark-theme-for-astra') . '</h2></div>';
-    echo '  <div class="edta-card__body">';
-
-    echo '<table class="form-table" role="presentation"><tbody>';
-    echo '<tr>';
-    echo '  <th scope="row">' . esc_html__('CSS para el switch', 'easy-dark-theme-for-astra') . ' ' . $this->help_button('custom_css') . '</th>';
-    echo '  <td>';
-
-    $custom_css = is_string($settings['custom_css'] ?? null) ? (string)$settings['custom_css'] : '';
-    echo '    <textarea id="edta-custom-css" name="' . esc_attr(self::OPTION_KEY) . '[custom_css]" rows="7" spellcheck="false" placeholder="Ej 1 (propiedades):&#10;border-radius: 999px;&#10;box-shadow: 0 6px 22px rgba(0,0,0,.18);&#10;&#10;Ej 2 (reglas completas):&#10;.edta-toggle { border-radius: 999px; }&#10;.edta-toggle .edta-toggle__knob { opacity: .92; }">' . esc_textarea($custom_css) . '</textarea>';
-    echo '    <p class="description">Se inyecta en el frontend y aplica sobre el switch (<code>.edta-toggle</code>).</p>';
-
-    echo '  </td>';
-    echo '</tr>';
-    echo '</tbody></table>';
-
-    echo '  </div>';
-    echo '</section>';
-
     // Renderiza card: Astra Global Colors.
     $palette_mode = (string)($settings['palette_mode'] ?? 'free');
     if ($palette_mode !== 'free' && $palette_mode !== 'custom') $palette_mode = 'free';
@@ -659,10 +637,6 @@ final class EDTA_Admin {
                   . '<svg class="edta-side-ico" viewBox="0 0 24 24" aria-hidden="true"><path d="M3 12h4l3-8 4 16 3-8h4"/></svg>'
                   . '<span>' . esc_html__('Animación', 'easy-dark-theme-for-astra') . '</span>'
                 . '</a></li>';
-    echo '        <li><a href="#edta-sec-custom-css" data-edta-nav="edta-sec-custom-css">'
-                  . '<svg class="edta-side-ico" viewBox="0 0 24 24" aria-hidden="true"><path d="M8 9l-3 3 3 3"/><path d="M16 9l3 3-3 3"/><path d="M14 7l-4 10"/></svg>'
-                  . '<span>' . esc_html__('CSS personalizado', 'easy-dark-theme-for-astra') . '</span>'
-                . '</a></li>';
     echo '        <li><a href="#edta-sec-astra" data-edta-nav="edta-sec-astra">'
                   . '<svg class="edta-side-ico" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 3l2.5 6H21l-5 4 2 7-6-4-6 4 2-7-5-4h6.5z"/></svg>'
                   . '<span>' . esc_html__('Astra Global Colors', 'easy-dark-theme-for-astra') . '</span>'
@@ -902,8 +876,6 @@ final class EDTA_Admin {
 
       'a11y_reduce_motion' => true,
       'a11y_focus_ring' => true,
-
-      'custom_css' => '', // CSS personalizado del toggle.
     ];
 
     return $defaults;
@@ -953,13 +925,6 @@ final class EDTA_Admin {
     $out['toggle_visibility'] = in_array($vis, $allowed_vis, true) ? $vis : $defaults['toggle_visibility'];
 
     $out['enable_transitions'] = !empty($input['enable_transitions']); // Habilita transición breve al cambiar tema.
-
-    // Sanitiza CSS personalizado del usuario.
-    $raw_css = is_string($input['custom_css'] ?? '') ? $input['custom_css'] : '';
-    $raw_css = wp_kses($raw_css, []);      // Evita HTML.
-    $raw_css = trim($raw_css);
-    $raw_css = str_ireplace(['</style', '</script'], '', $raw_css);
-    $out['custom_css'] = $raw_css;
 
     // Sanitiza opciones de accesibilidad.
     $out['a11y_reduce_motion'] = !empty($input['a11y_reduce_motion']);

@@ -40,8 +40,6 @@ Main features:
   * Custom Palette (fully editable)
   * Dark palette always applied in dark mode
   * Light palette can be skipped to respect the theme’s own light colors (recommended)
-* Custom CSS:
-  * Add custom CSS that is applied to the toggle (.edta-toggle) for advanced styling without editing files
 * Accessibility options:
   * Reduced motion support (respects prefers-reduced-motion)
   * Optional focus ring improvements for keyboard navigation
@@ -69,7 +67,6 @@ https://wordpress.org/plugins/easy-dark-theme-for-astra/
    * Default mode (System / Light / Dark)
    * Button style/position/visibility
    * Theme transition
-   * Custom CSS (optional)
    * Accessibility options
    * Astra Global Colors palette options
    * Tools (export/import/reset)
@@ -108,10 +105,9 @@ No. You should set your site colors using Astra Global Colors (Customizer). The 
 == Screenshots ==
 
 1. Control + Animation sections (complete view)
-2. Custom CSS section
-3. Astra Global Colors (Free Preset Palette selected)
-4. Astra Global Colors (Custom Palette selected)
-5. Accessibility + Tools sections
+2. Astra Global Colors (Free Preset Palette selected)
+3. Astra Global Colors (Custom Palette selected)
+4. Accessibility + Tools sections
 
 == Changelog ==
 
@@ -131,7 +127,6 @@ No. You should set your site colors using Astra Global Colors (Customizer). The 
   * Optional theme transition on switch
   * Free Preset Palette + Custom Palette
   * Astra Global Colors palette mapping
-  * Custom CSS support for toggle styling
   * Export/Import settings (JSON) and Reset tools
   * Cross-tab sync, fallbacks, and accessibility improvements
 

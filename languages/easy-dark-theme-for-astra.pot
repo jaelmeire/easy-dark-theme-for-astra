@@ -1,0 +1,331 @@
+#, fuzzy
+msgid ""
+msgstr ""
+"Project-Id-Version: Easy Dark Theme for Astra\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2026-02-25 21:07+0000\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: \n"
+"Language: \n"
+"Plural-Forms: nplurals=INTEGER; plural=EXPRESSION;\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"X-Generator: Loco https://localise.biz/\n"
+"X-Loco-Version: 2.8.1; wp-6.9.1; php-8.2.27\n"
+"X-Domain: easy-dark-theme-for-astra"
+
+#: includes/class-edta-admin.php:549 includes/class-edta-admin.php:646
+msgid "Accesibilidad"
+msgstr ""
+
+#: includes/class-edta-admin.php:638
+msgid "Animación"
+msgstr ""
+
+#: includes/class-edta-admin.php:390 includes/class-edta-admin.php:642
+msgid "Astra Global Colors"
+msgstr ""
+
+#: includes/class-edta-admin.php:629
+msgid "Atajos"
+msgstr ""
+
+#: includes/class-edta-admin.php:265
+msgid "Auto (sistema)"
+msgstr ""
+
+#: includes/class-edta-admin.php:266
+msgid "Botón"
+msgstr ""
+
+#: includes/class-edta-frontend.php:404
+msgid "Botón de cambio de tema (sincronizado con el flotante)."
+msgstr ""
+
+#: includes/class-edta-frontend.php:357 includes/class-edta-frontend.php:358
+msgid "Cambiar tema"
+msgstr ""
+
+#: includes/class-edta-admin.php:184
+msgid "Cambios sin guardar"
+msgstr ""
+
+#: includes/class-edta-admin.php:449
+msgid "Claro"
+msgstr ""
+
+#: includes/class-edta-admin.php:434
+msgid "Colores globales"
+msgstr ""
+
+#: includes/class-edta-admin.php:229
+msgid "Configuración importada correctamente."
+msgstr ""
+
+#: includes/class-edta-admin.php:230
+msgid "Configuración restablecida a valores por defecto."
+msgstr ""
+
+#: includes/class-edta-admin.php:240
+msgid "Confirmación incorrecta. No se aplicó el reset."
+msgstr ""
+
+#: includes/class-edta-admin.php:258 includes/class-edta-admin.php:634
+msgid "Control"
+msgstr ""
+
+#: includes/class-edta-admin.php:407
+msgid "Custom Palette"
+msgstr ""
+
+#: includes/class-edta-admin.php:300
+msgid "Dark"
+msgstr ""
+
+#: includes/class-edta-admin.php:595
+msgid ""
+"Descarga un JSON con todos los ajustes. Nota: se exporta solo la paleta "
+"personalizada."
+msgstr ""
+
+#. Name of the plugin
+#: includes/class-edta-admin.php:135 includes/class-edta-admin.php:136
+#: includes/class-edta-admin.php:183 includes/class-edta-admin.php:224
+msgid "Easy Dark Theme for Astra"
+msgstr ""
+
+#: includes/class-edta-frontend.php:403
+msgid "EDTA — Theme Toggle"
+msgstr ""
+
+#: includes/class-edta-admin.php:330
+msgid "Espaciado horizontal"
+msgstr ""
+
+#: includes/class-edta-admin.php:339
+msgid "Espaciado vertical"
+msgstr ""
+
+#: includes/class-edta-admin.php:552
+msgid ""
+"Estas opciones ayudan a que el switch sea más cómodo para usuarios con "
+"sensibilidad al movimiento o navegación por teclado."
+msgstr ""
+
+#: includes/class-edta-admin.php:1048
+msgid ""
+"Este plugin está diseñado para Astra. Activá Astra para usar las variables --"
+"ast-global-color-*."
+msgstr ""
+
+#: includes/class-edta-admin.php:284
+msgid "Estilo del botón"
+msgstr ""
+
+#: includes/class-edta-admin.php:612
+msgid ""
+"Esto reemplaza TODOS los ajustes por los valores por defecto del plugin."
+msgstr ""
+
+#: includes/class-edta-admin.php:599
+msgid "Exporta un archivo JSON con la configuración."
+msgstr ""
+
+#: includes/class-edta-admin.php:231
+msgid "Exportación generada."
+msgstr ""
+
+#: includes/class-edta-admin.php:594
+msgid "Exportar configuración"
+msgstr ""
+
+#: includes/class-edta-admin.php:599
+msgid "Exportar JSON"
+msgstr ""
+
+#: includes/class-edta-admin.php:571
+msgid "Foco visible (teclado)"
+msgstr ""
+
+#: includes/class-edta-admin.php:401
+msgid "Free Preset Palette"
+msgstr ""
+
+#: includes/class-edta-admin.php:658
+msgid "Guardado"
+msgstr ""
+
+#: includes/class-edta-admin.php:585 includes/class-edta-admin.php:663
+msgid "Guardar cambios"
+msgstr ""
+
+#: includes/class-edta-admin.php:281
+msgid "Guardar el modo elegido en el navegador (solo modo botón)."
+msgstr ""
+
+#: includes/class-edta-admin.php:672
+msgid "Guía rápida"
+msgstr ""
+
+#: includes/class-edta-admin.php:591 includes/class-edta-admin.php:650
+msgid "Herramientas"
+msgstr ""
+
+#. Author URI of the plugin
+msgid "https://jaelmeire.vercel.app/"
+msgstr ""
+
+#. URI of the plugin
+msgid "https://wordpress.org/plugins/easy-dark-theme-for-astra/"
+msgstr ""
+
+#: includes/class-edta-admin.php:608
+msgid "Importa un archivo JSON con la configuración."
+msgstr ""
+
+#: includes/class-edta-admin.php:602
+msgid "Importar configuración"
+msgstr ""
+
+#: includes/class-edta-admin.php:608
+msgid "Importar JSON"
+msgstr ""
+
+#: includes/class-edta-admin.php:37
+msgid "Información"
+msgstr ""
+
+#. Author of the plugin
+msgid "Jael Meire"
+msgstr ""
+
+#: includes/class-edta-admin.php:489
+msgid ""
+"La paleta Claro está desactivada porque “Usar colores del tema” está activo."
+msgstr ""
+
+#: includes/class-edta-admin.php:299
+msgid "Light"
+msgstr ""
+
+#. Description of the plugin
+msgid ""
+"Light/dark mode for Astra with a toggle button (floating, widget, shortcode) "
+"and palette mapping to Astra Global Colors."
+msgstr ""
+
+#: includes/class-edta-admin.php:575
+msgid "Mejora el contorno de foco del switch cuando se navega con Tab."
+msgstr ""
+
+#: includes/class-edta-admin.php:298
+msgid "Modo"
+msgstr ""
+
+#: includes/class-edta-admin.php:263
+msgid "Modo de control"
+msgstr ""
+
+#: includes/class-edta-admin.php:270
+msgid "Modo por defecto"
+msgstr ""
+
+#: includes/class-edta-admin.php:239 includes/class-edta-admin.php:241
+msgid "No autorizado."
+msgstr ""
+
+#: includes/class-edta-admin.php:237
+msgid ""
+"No se pudo importar: el archivo JSON es inválido o no contiene settings."
+msgstr ""
+
+#: includes/class-edta-admin.php:238
+msgid "No se pudo importar: error de subida del archivo."
+msgstr ""
+
+#: includes/class-edta-admin.php:498
+msgid "Oscuro"
+msgstr ""
+
+#: includes/class-edta-admin.php:395
+msgid "Paleta"
+msgstr ""
+
+#: includes/class-edta-admin.php:616
+msgid "Para confirmar, escribí:"
+msgstr ""
+
+#: includes/class-edta-admin.php:656
+msgid "para ver ayuda contextual."
+msgstr ""
+
+#: includes/class-edta-admin.php:321
+msgid "Posición"
+msgstr ""
+
+#: includes/class-edta-admin.php:311
+msgid "Posición del botón"
+msgstr ""
+
+#: includes/class-edta-admin.php:297
+msgid "Previsualización"
+msgstr ""
+
+#: includes/class-edta-admin.php:280
+msgid "Recordar preferencia"
+msgstr ""
+
+#: includes/class-edta-admin.php:618
+msgid "Reinicia la configuración del plugin a los valores por defecto."
+msgstr ""
+
+#: includes/class-edta-admin.php:416
+msgid ""
+"Respetar colores del tema en modo Claro (no aplicar paleta Claro del plugin)."
+msgstr ""
+
+#: includes/class-edta-admin.php:559
+msgid "Respetar “reduced motion”"
+msgstr ""
+
+#: includes/class-edta-admin.php:611
+msgid "Restablecer a valores por defecto"
+msgstr ""
+
+#: includes/class-edta-admin.php:618
+msgid "Restablecer ahora"
+msgstr ""
+
+#: includes/class-edta-admin.php:563
+msgid ""
+"Si el sistema pide reducir animaciones, el plugin evita transiciones al "
+"cambiar tema."
+msgstr ""
+
+#: includes/class-edta-admin.php:185 includes/class-edta-admin.php:660
+msgid "Sin cambios"
+msgstr ""
+
+#: includes/class-edta-admin.php:603
+msgid ""
+"Subí un JSON exportado previamente. La importación aplica como “Paleta "
+"personalizada”."
+msgstr ""
+
+#: includes/class-edta-admin.php:415
+msgid "Usar colores del tema (Claro)"
+msgstr ""
+
+#: includes/class-edta-admin.php:654
+msgid "Usá el icono"
+msgstr ""
+
+#: includes/class-edta-admin.php:351
+msgid "Visibilidad del botón"
+msgstr ""
+
+#: includes/class-edta-admin.php:305
+msgid "Vista previa"
+msgstr ""

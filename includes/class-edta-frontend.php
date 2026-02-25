@@ -50,29 +50,7 @@ final class EDTA_Frontend {
       wp_add_inline_style('edta-frontend', $css);
     }
 
-    // Genera e inyecta CSS personalizado del toggle.
-    $custom_css = $this->build_custom_toggle_css($settings);
-    if ($custom_css !== '') {
-      wp_add_inline_style('edta-frontend', $custom_css);
-    }
-
   } // Fin de EDTA_Frontend::enqueue_assets()
-
-  // Construye CSS personalizado del toggle a partir de los ajustes guardados.
-  private function build_custom_toggle_css(array $settings): string {
-    $raw = $settings['custom_css'] ?? '';
-    if (!is_string($raw)) return '';
-    $raw = trim($raw);
-    if ($raw === '') return '';
-
-    // Si incluye llaves, se asume que es CSS completo.
-    if (strpos($raw, '{') !== false) {
-      return "\n/* EDTA Custom CSS */\n" . $raw . "\n";
-    }
-
-    // Si no incluye llaves, se asume lista de propiedades y se envuelve en .edta-toggle.
-    return "\n/* EDTA Custom CSS */\n.edta-toggle{" . $raw . "}\n";
-  } // Fin de EDTA_Frontend::build_custom_toggle_css()
 
   // Imprime script temprano para definir el modo antes del render y evitar parpadeo visual.
   public function print_early_mode_script(): void {
@@ -245,8 +223,6 @@ final class EDTA_Frontend {
       'toggle_offset_x' => 18,
       'toggle_offset_y' => 18,
       'toggle_visibility' => 'show_all',
-
-      'custom_css' => '', // CSS personalizado del toggle.
 
       'use_theme_light_palette' => true, // Indica si se respeta la paleta light del theme.
 

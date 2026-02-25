@@ -755,10 +755,6 @@
       parts.push("toggle_offset_x=" + getSelect("#edta-toggle-offset-x"));
       parts.push("toggle_offset_y=" + getSelect("#edta-toggle-offset-y"));
 
-      // Custom CSS
-      const customCss = $("#edta-custom-css").length ? String($("#edta-custom-css").val() || "").trim() : "";
-      parts.push("custom_css=" + encodeURIComponent(customCss));
-
       // Animación
       parts.push("enable_transitions=" + getCheckbox("enable_transitions"));
 
