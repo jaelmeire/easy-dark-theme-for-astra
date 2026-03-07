@@ -1,10 +1,10 @@
 === Easy Dark Theme for Astra ===
-Contributors: Jael Meire
-Tags: astra, dark mode, light mode, theme toggle, color scheme, global colors
+Contributors: jaelmeire
+Tags: dark mode, astra, theme switcher, accessibility, customization
 Requires at least: 6.0
-Tested up to: 6.9
-Requires PHP: 8.0
-Stable tag: 0.1.1
+Tested up to: 6.9.1
+Requires PHP: 7.4
+Stable tag: 1.0.1
 License: GPLv2 or later
 License URI: https://www.gnu.org/licenses/gpl-2.0.html
 
@@ -111,6 +111,12 @@ No. You should set your site colors using Astra Global Colors (Customizer). The 
 
 == Changelog ==
 
+= 1.0.1 =
+* Tested compatibility with WordPress 6.9.1
+
+= 1.0.0 =
+* Official public release on WordPress.org
+
 = 0.1.1 =
 * Updated plugin URL to official WordPress.org page.
 * Improved admin UI initialization to reduce palette flicker.
@@ -132,5 +138,5 @@ No. You should set your site colors using Astra Global Colors (Customizer). The 
 
 == Upgrade Notice ==
 
-= 0.1.1 =
-Minor improvements and admin UX refinements.
+= 1.0.1 =
+* Tested compatibility with WordPress 6.9.1
