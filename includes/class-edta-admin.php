@@ -15,26 +15,26 @@ final class EDTA_Admin {
   // Devuelve textos de ayuda para cada opción del panel admin.
   private function get_tooltips(): array {
     return [
-      'control_mode' => 'Define cómo se elige el tema. Automático usa la preferencia del sistema; Botón permite que el usuario cambie manualmente.',
-      'default_mode' => 'Solo aplica si el Modo de control está en Automático. Permite forzar Claro u Oscuro, o respetar la preferencia del sistema.',
-      'remember_mode' => 'En modo Botón, recuerda el tema elegido por el usuario para mantenerlo entre visitas.',
-      'toggle_style' => 'Define la apariencia del switch de cambio de tema.',
-      'toggle_position' => 'Ubicación del botón flotante en pantalla. El espaciado Horizontal/Vertical siempre es positivo y se aplica automáticamente según la posición elegida (arriba/abajo e izquierda/derecha).',
-      'toggle_visibility' => 'Permite ocultar el botón según el dispositivo (mobile/desktop) o esconderlo siempre.',
-      'enable_transitions' => 'Aplica una transición breve SOLO durante el cambio entre temas. No queda activa permanentemente.',
-      'palette_mode' => 'Free Preset Palette es la paleta gratuita del plugin y no puede modificarse. Para editar colores, seleccioná Custom Palette.',
-      'use_theme_light_palette' => 'Si está activo, el tema Claro no usará los colores del plugin. En su lugar, se usarán los colores definidos por Astra.',
-      'global_colors' => 'Mapea tu paleta a las variables de Astra (--ast-global-color-0..8). Esto afecta el diseño del theme cuando cambia el tema.',
-      'export_settings' => 'Genera un archivo JSON con tu configuración actual para guardarla o moverla a otro sitio.',
-      'import_settings' => 'Carga un archivo JSON exportado previamente y aplica esa configuración en este sitio.',
-      'reset' => 'Restaura la configuración del plugin a valores por defecto. Requiere confirmación para evitar resets accidentales.',
-      'accessibility' => 'Opciones para mejorar accesibilidad (respeto de reduced-motion, foco visible, etc.). Recomendado dejarlo activado.',
+      'control_mode' => __('Defines how the theme is chosen. Auto uses the system preference; Button lets the user switch manually.', 'easy-dark-theme-for-astra'),
+      'default_mode' => __('Only applies when Control Mode is set to Auto. Lets you force Light or Dark, or follow the system preference.', 'easy-dark-theme-for-astra'),
+      'remember_mode' => __('In Button mode, remembers the user\'s chosen theme to keep it between visits.', 'easy-dark-theme-for-astra'),
+      'toggle_style' => __('Defines the appearance of the theme switch.', 'easy-dark-theme-for-astra'),
+      'toggle_position' => __('Position of the floating button on screen. Horizontal/Vertical spacing is always positive and applied automatically based on the chosen position (top/bottom and left/right).', 'easy-dark-theme-for-astra'),
+      'toggle_visibility' => __('Allows hiding the button based on device (mobile/desktop) or always hiding it.', 'easy-dark-theme-for-astra'),
+      'enable_transitions' => __('Applies a brief transition ONLY while switching between themes. It does not remain active permanently.', 'easy-dark-theme-for-astra'),
+      'palette_mode' => __('Free Preset Palette is the plugin\'s built-in palette and cannot be modified. To edit colors, select Custom Palette.', 'easy-dark-theme-for-astra'),
+      'use_theme_light_palette' => __('When enabled, the Light theme will not use the plugin\'s colors. Instead, Astra\'s own colors will be used.', 'easy-dark-theme-for-astra'),
+      'global_colors' => __('Maps your palette to Astra variables (--ast-global-color-0..8). This affects the theme design when the mode changes.', 'easy-dark-theme-for-astra'),
+      'export_settings' => __('Generates a JSON file with your current settings to save or transfer to another site.', 'easy-dark-theme-for-astra'),
+      'import_settings' => __('Loads a previously exported JSON file and applies that configuration on this site.', 'easy-dark-theme-for-astra'),
+      'reset' => __('Restores plugin settings to their default values. Requires confirmation to prevent accidental resets.', 'easy-dark-theme-for-astra'),
+      'accessibility' => __('Options to improve accessibility (reduced-motion support, visible focus, etc.). Recommended to keep enabled.', 'easy-dark-theme-for-astra'),
     ];
   } // Fin de EDTA_Admin::get_tooltips()
 
   // Renderiza botón de ayuda asociado a un tooltip del panel.
   private function help_button(string $key): string {
-    $html = '<button type="button" class="edta-help" data-edta-tip="' . esc_attr($key) . '" aria-label="' . esc_attr__('Información', 'easy-dark-theme-for-astra') . '">i</button>';
+    $html = '<button type="button" class="edta-help" data-edta-tip="' . esc_attr($key) . '" aria-label="' . esc_attr__('Help', 'easy-dark-theme-for-astra') . '">i</button>';
 
     return wp_kses($html, [
       'button' => [
@@ -181,8 +181,10 @@ final class EDTA_Admin {
     // Pasa textos localizados al JS del admin.
     wp_localize_script('edta-admin', 'EDTA_I18N', [
       'confirm_reset_phrase' => esc_html__('Easy Dark Theme for Astra', 'easy-dark-theme-for-astra'),
-      'unsaved' => esc_html__('Cambios sin guardar', 'easy-dark-theme-for-astra'),
-      'no_changes' => esc_html__('Sin cambios', 'easy-dark-theme-for-astra'),
+      'unsaved' => esc_html__('Unsaved changes', 'easy-dark-theme-for-astra'),
+      'no_changes' => esc_html__('No changes', 'easy-dark-theme-for-astra'),
+      'saving' => esc_html__('Saving…', 'easy-dark-theme-for-astra'),
+      'palette_locked' => esc_html__('Palette locked.', 'easy-dark-theme-for-astra'),
     ]);
 
     // Expone paletas free para previews del admin.
@@ -226,19 +228,19 @@ final class EDTA_Admin {
     // Renderiza notices según parámetros de URL.
     if ($msg) {
       $text = '';
-      if ($msg === 'import_ok')  $text = __('Configuración importada correctamente.', 'easy-dark-theme-for-astra');
-      if ($msg === 'reset_ok')   $text = __('Configuración restablecida a valores por defecto.', 'easy-dark-theme-for-astra');
-      if ($msg === 'export_ok')  $text = __('Exportación generada.', 'easy-dark-theme-for-astra');
+      if ($msg === 'import_ok')  $text = __('Settings imported successfully.', 'easy-dark-theme-for-astra');
+      if ($msg === 'reset_ok')   $text = __('Settings restored to default values.', 'easy-dark-theme-for-astra');
+      if ($msg === 'export_ok')  $text = __('Export generated.', 'easy-dark-theme-for-astra');
       if ($text) echo '<div class="notice notice-success is-dismissible"><p>' . esc_html($text) . '</p></div>';
     }
 
     if ($err) {
       $text = '';
-      if ($err === 'import_bad')        $text = __('No se pudo importar: el archivo JSON es inválido o no contiene settings.', 'easy-dark-theme-for-astra');
-      if ($err === 'import_upload')     $text = __('No se pudo importar: error de subida del archivo.', 'easy-dark-theme-for-astra');
-      if ($err === 'import_cap')        $text = __('No autorizado.', 'easy-dark-theme-for-astra');
-      if ($err === 'reset_confirm')     $text = __('Confirmación incorrecta. No se aplicó el reset.', 'easy-dark-theme-for-astra');
-      if ($err === 'reset_cap')         $text = __('No autorizado.', 'easy-dark-theme-for-astra');
+      if ($err === 'import_bad')        $text = __('Import failed: the JSON file is invalid or does not contain settings.', 'easy-dark-theme-for-astra');
+      if ($err === 'import_upload')     $text = __('Import failed: file upload error.', 'easy-dark-theme-for-astra');
+      if ($err === 'import_cap')        $text = __('Not authorized.', 'easy-dark-theme-for-astra');
+      if ($err === 'reset_confirm')     $text = __('Incorrect confirmation. Reset was not applied.', 'easy-dark-theme-for-astra');
+      if ($err === 'reset_cap')         $text = __('Not authorized.', 'easy-dark-theme-for-astra');
       if ($text) echo '<div class="notice notice-error is-dismissible"><p>' . esc_html($text) . '</p></div>';
     }
 
@@ -260,55 +262,55 @@ final class EDTA_Admin {
 
     echo '<table class="form-table" role="presentation"><tbody>';
 
-    echo '<tr><th scope="row">' . esc_html__('Modo de control', 'easy-dark-theme-for-astra') . ' ' . $this->help_button('control_mode') . '</th><td>';
+    echo '<tr><th scope="row">' . esc_html__('Control mode', 'easy-dark-theme-for-astra') . ' ' . $this->help_button('control_mode') . '</th><td>';
     echo '<fieldset id="edta-control-mode">';
-    echo '<label style="margin-right:14px;"><input type="radio" name="' . esc_attr(self::OPTION_KEY) . '[control_mode]" value="auto" ' . checked($control_mode, 'auto', false) . '> ' . esc_html__('Auto (sistema)', 'easy-dark-theme-for-astra') . '</label>';
-    echo '<label><input type="radio" name="' . esc_attr(self::OPTION_KEY) . '[control_mode]" value="button" ' . checked($control_mode, 'button', false) . '> ' . esc_html__('Botón', 'easy-dark-theme-for-astra') . '</label>';
+    echo '<label style="margin-right:14px;"><input type="radio" name="' . esc_attr(self::OPTION_KEY) . '[control_mode]" value="auto" ' . checked($control_mode, 'auto', false) . '> ' . esc_html__('Auto (system)', 'easy-dark-theme-for-astra') . '</label>';
+    echo '<label><input type="radio" name="' . esc_attr(self::OPTION_KEY) . '[control_mode]" value="button" ' . checked($control_mode, 'button', false) . '> ' . esc_html__('Button', 'easy-dark-theme-for-astra') . '</label>';
     echo '</fieldset>';
     echo '</td></tr>';
 
-    echo '<tr id="edta-auto-fields"><th scope="row">' . esc_html__('Modo por defecto', 'easy-dark-theme-for-astra') . ' ' . $this->help_button('default_mode') . '</th><td>';
+    echo '<tr id="edta-auto-fields"><th scope="row">' . esc_html__('Default mode', 'easy-dark-theme-for-astra') . ' ' . $this->help_button('default_mode') . '</th><td>';
     $default_mode = $settings['default_mode'] ?? 'system';
     echo '<select id="edta-default-mode" name="' . esc_attr(self::OPTION_KEY) . '[default_mode]">';
-    foreach (['system' => 'Sistema', 'light' => 'Claro', 'dark' => 'Oscuro'] as $k => $label) {
+    foreach (['system' => __('System', 'easy-dark-theme-for-astra'), 'light' => __('Light', 'easy-dark-theme-for-astra'), 'dark' => __('Dark', 'easy-dark-theme-for-astra')] as $k => $label) {
       echo '<option value="' . esc_attr($k) . '" ' . selected($default_mode, $k, false) . '>' . esc_html($label) . '</option>';
     }
     echo '</select>';
     echo '</td></tr>';
 
     $remember = !empty($settings['remember_mode']);
-    echo '<tr><th scope="row">' . esc_html__('Recordar preferencia', 'easy-dark-theme-for-astra') . ' ' . $this->help_button('remember_mode') . '</th><td>';
-    echo '<label><input type="checkbox" name="' . esc_attr(self::OPTION_KEY) . '[remember_mode]" value="1" ' . checked($remember, true, false) . '> ' . esc_html__('Guardar el modo elegido en el navegador (solo modo botón).', 'easy-dark-theme-for-astra') . '</label>';
+    echo '<tr><th scope="row">' . esc_html__('Remember preference', 'easy-dark-theme-for-astra') . ' ' . $this->help_button('remember_mode') . '</th><td>';
+    echo '<label><input type="checkbox" name="' . esc_attr(self::OPTION_KEY) . '[remember_mode]" value="1" ' . checked($remember, true, false) . '> ' . esc_html__('Save the chosen mode in the browser (button mode only).', 'easy-dark-theme-for-astra') . '</label>';
     echo '</td></tr>';
 
-    echo '<tr id="edta-button-fields"><th scope="row">' . esc_html__('Estilo del botón', 'easy-dark-theme-for-astra') . ' ' . $this->help_button('toggle_style') . '</th><td>';
+    echo '<tr id="edta-button-fields"><th scope="row">' . esc_html__('Button style', 'easy-dark-theme-for-astra') . ' ' . $this->help_button('toggle_style') . '</th><td>';
 
     $toggle_style = $settings['toggle_style'] ?? 'icon';
 
     echo '<select id="edta-toggle-style" name="' . esc_attr(self::OPTION_KEY) . '[toggle_style]">';
-    echo '<option value="icon" ' . selected($toggle_style, 'icon', false) . '>Icon</option>';
-    echo '<option value="text" ' . selected($toggle_style, 'text', false) . '>Text</option>';
-    echo '<option value="pill" ' . selected($toggle_style, 'pill', false) . '>Pill</option>';
+    echo '<option value="icon" ' . selected($toggle_style, 'icon', false) . '>' . esc_html__('Icon', 'easy-dark-theme-for-astra') . '</option>';
+    echo '<option value="text" ' . selected($toggle_style, 'text', false) . '>' . esc_html__('Text', 'easy-dark-theme-for-astra') . '</option>';
+    echo '<option value="pill" ' . selected($toggle_style, 'pill', false) . '>' . esc_html__('Pill', 'easy-dark-theme-for-astra') . '</option>';
     echo '</select>';
 
     // Renderiza previsualización del toggle.
     echo '<div class="edta-toggle-preview" data-preview-style="' . esc_attr($toggle_style) . '">';
       echo '<div class="edta-toggle-preview__toolbar">';
-        echo '<span class="edta-toggle-preview__label">' . esc_html__('Previsualización', 'easy-dark-theme-for-astra') . '</span>';
-        echo '<div class="edta-toggle-preview__segmented" role="group" aria-label="' . esc_attr__('Modo', 'easy-dark-theme-for-astra') . '">';
+        echo '<span class="edta-toggle-preview__label">' . esc_html__('Preview', 'easy-dark-theme-for-astra') . '</span>';
+        echo '<div class="edta-toggle-preview__segmented" role="group" aria-label="' . esc_attr__('Mode', 'easy-dark-theme-for-astra') . '">';
           echo '<button type="button" class="edta-preview-mode is-active" data-edta-preview-mode="light">' . esc_html__('Light', 'easy-dark-theme-for-astra') . '</button>';
           echo '<button type="button" class="edta-preview-mode" data-edta-preview-mode="dark">' . esc_html__('Dark', 'easy-dark-theme-for-astra') . '</button>';
         echo '</div>';
       echo '</div>';
 
       echo '<div class="edta-toggle-preview__canvas" id="edta-toggle-preview-canvas">';
-        echo '<button type="button" class="edta-toggle edta-toggle--preview" id="edta-toggle-preview-btn" data-style="' . esc_attr($toggle_style) . '" aria-label="' . esc_attr__('Vista previa', 'easy-dark-theme-for-astra') . '"></button>';
+        echo '<button type="button" class="edta-toggle edta-toggle--preview" id="edta-toggle-preview-btn" data-style="' . esc_attr($toggle_style) . '" aria-label="' . esc_attr__('Preview', 'easy-dark-theme-for-astra') . '"></button>';
       echo '</div>';
     echo '</div>';
 
     echo '</td></tr>';
 
-    echo '<tr id="edta-button-fields-2"><th scope="row">' . esc_html__('Posición del botón', 'easy-dark-theme-for-astra') . ' ' . $this->help_button('toggle_position') . '</th><td>';
+    echo '<tr id="edta-button-fields-2"><th scope="row">' . esc_html__('Button position', 'easy-dark-theme-for-astra') . ' ' . $this->help_button('toggle_position') . '</th><td>';
 
     $toggle_pos = $settings['toggle_position'] ?? 'br';
     $off_x = isset($settings['toggle_offset_x']) ? (int) $settings['toggle_offset_x'] : 18;
@@ -318,16 +320,16 @@ final class EDTA_Admin {
 
     // Renderiza controles de posición y offsets.
     echo '<div class="edta-pos-field">';
-      echo '<label class="edta-pos-label" for="edta-toggle-position">' . esc_html__('Posición', 'easy-dark-theme-for-astra') . '</label>';
+      echo '<label class="edta-pos-label" for="edta-toggle-position">' . esc_html__('Position', 'easy-dark-theme-for-astra') . '</label>';
       echo '<select id="edta-toggle-position" name="' . esc_attr(self::OPTION_KEY) . '[toggle_position]">';
-      foreach (['br' => 'Bottom Right', 'bl' => 'Bottom Left', 'tr' => 'Top Right', 'tl' => 'Top Left'] as $k => $label) {
+      foreach (['br' => __('Bottom Right', 'easy-dark-theme-for-astra'), 'bl' => __('Bottom Left', 'easy-dark-theme-for-astra'), 'tr' => __('Top Right', 'easy-dark-theme-for-astra'), 'tl' => __('Top Left', 'easy-dark-theme-for-astra')] as $k => $label) {
         echo '<option value="' . esc_attr($k) . '" ' . selected($toggle_pos, $k, false) . '>' . esc_html($label) . '</option>';
       }
       echo '</select>';
       echo '</div>';
 
       echo '<div class="edta-pos-field">';
-        echo '<label class="edta-pos-label" for="edta-toggle-offset-x">' . esc_html__('Espaciado horizontal', 'easy-dark-theme-for-astra') . '</label>';
+        echo '<label class="edta-pos-label" for="edta-toggle-offset-x">' . esc_html__('Horizontal spacing', 'easy-dark-theme-for-astra') . '</label>';
         echo '<div class="edta-pos-input">';
           echo '<input id="edta-toggle-offset-x" class="edta-pos-number" type="number" min="0" step="1" '
             . 'name="' . esc_attr(self::OPTION_KEY) . '[toggle_offset_x]" value="' . esc_attr($off_x) . '" />';
@@ -336,7 +338,7 @@ final class EDTA_Admin {
       echo '</div>';
 
       echo '<div class="edta-pos-field">';
-        echo '<label class="edta-pos-label" for="edta-toggle-offset-y">' . esc_html__('Espaciado vertical', 'easy-dark-theme-for-astra') . '</label>';
+        echo '<label class="edta-pos-label" for="edta-toggle-offset-y">' . esc_html__('Vertical spacing', 'easy-dark-theme-for-astra') . '</label>';
         echo '<div class="edta-pos-input">';
           echo '<input id="edta-toggle-offset-y" class="edta-pos-number" type="number" min="0" step="1" '
             . 'name="' . esc_attr(self::OPTION_KEY) . '[toggle_offset_y]" value="' . esc_attr($off_y) . '" />';
@@ -348,10 +350,10 @@ final class EDTA_Admin {
 
     echo '</td></tr>';
 
-    echo '<tr id="edta-button-fields-3"><th scope="row">' . esc_html__('Visibilidad del botón', 'easy-dark-theme-for-astra') . ' ' . $this->help_button('toggle_visibility') . '</th><td>';
+    echo '<tr id="edta-button-fields-3"><th scope="row">' . esc_html__('Button visibility', 'easy-dark-theme-for-astra') . ' ' . $this->help_button('toggle_visibility') . '</th><td>';
     $toggle_vis = $settings['toggle_visibility'] ?? 'show_all';
     echo '<select id="edta-toggle-visibility" name="' . esc_attr(self::OPTION_KEY) . '[toggle_visibility]">';
-    foreach (['show_all' => 'Mostrar siempre', 'hide_mobile' => 'Ocultar en mobile', 'hide_desktop' => 'Ocultar en desktop', 'hide_both' => 'Ocultar siempre'] as $k => $label) {
+    foreach (['show_all' => __('Always show', 'easy-dark-theme-for-astra'), 'hide_mobile' => __('Hide on mobile', 'easy-dark-theme-for-astra'), 'hide_desktop' => __('Hide on desktop', 'easy-dark-theme-for-astra'), 'hide_both' => __('Always hide', 'easy-dark-theme-for-astra')] as $k => $label) {
       echo '<option value="' . esc_attr($k) . '" ' . selected($toggle_vis, $k, false) . '>' . esc_html($label) . '</option>';
     }
     echo '</select>';
@@ -364,16 +366,16 @@ final class EDTA_Admin {
 
     // Renderiza card: Animación.
     echo '<section class="edta-card" id="edta-sec-animation">';
-    echo '  <div class="edta-card__header"><h2 class="edta-card__title">Animación</h2></div>';
+    echo '  <div class="edta-card__header"><h2 class="edta-card__title">' . esc_html__('Animation', 'easy-dark-theme-for-astra') . '</h2></div>';
     echo '  <div class="edta-card__body">';
 
     echo '<table class="form-table" role="presentation"><tbody>';
     echo '<tr>';
-    echo '  <th scope="row">Transición ' . wp_kses( $this->help_button('enable_transitions'), array( 'button' => array( 'type' => true, 'class' => true, 'data-edta-tip' => true, 'aria-label' => true ) ) ) . '</th>';
+    echo '  <th scope="row">' . esc_html__('Transition', 'easy-dark-theme-for-astra') . ' ' . wp_kses( $this->help_button('enable_transitions'), array( 'button' => array( 'type' => true, 'class' => true, 'data-edta-tip' => true, 'aria-label' => true ) ) ) . '</th>';
     echo '  <td>';
     echo '    <label>';
     echo '      <input type="checkbox" name="' . esc_attr(self::OPTION_KEY) . '[enable_transitions]" value="1" ' . checked(!empty($settings['enable_transitions']), true, false) . ' />';
-    echo '      Activar transición al cambiar tema';
+    echo '      ' . esc_html__('Enable transition when switching theme', 'easy-dark-theme-for-astra');
     echo '    </label>';
     echo '  </td>';
     echo '</tr>';
@@ -392,7 +394,7 @@ final class EDTA_Admin {
 
     echo '<table class="form-table" role="presentation"><tbody>';
 
-    echo '<tr><th scope="row">' . esc_html__('Paleta', 'easy-dark-theme-for-astra') . ' ' . $this->help_button('palette_mode') . '</th><td>';
+    echo '<tr><th scope="row">' . esc_html__('Palette', 'easy-dark-theme-for-astra') . ' ' . $this->help_button('palette_mode') . '</th><td>';
     echo '<fieldset id="edta-palette-mode">';
 
     echo '<label class="edta-palette-choice" style="margin-right:14px;">'
@@ -412,8 +414,8 @@ final class EDTA_Admin {
 
     // Renderiza opción para respetar paleta light del theme.
     $use_theme_light = !empty($settings['use_theme_light_palette']);
-    echo '<tr><th scope="row">' . esc_html__('Usar colores del tema (Claro)', 'easy-dark-theme-for-astra') . ' ' . $this->help_button('use_theme_light_palette') . '</th><td>';
-    echo '<label><input id="edta-use-theme-light" type="checkbox" name="' . esc_attr(self::OPTION_KEY) . '[use_theme_light_palette]" value="1" ' . checked($use_theme_light, true, false) . '> ' . esc_html__('Respetar colores del tema en modo Claro (no aplicar paleta Claro del plugin).', 'easy-dark-theme-for-astra') . '</label>';
+    echo '<tr><th scope="row">' . esc_html__('Use theme colors (Light)', 'easy-dark-theme-for-astra') . ' ' . $this->help_button('use_theme_light_palette') . '</th><td>';
+    echo '<label><input id="edta-use-theme-light" type="checkbox" name="' . esc_attr(self::OPTION_KEY) . '[use_theme_light_palette]" value="1" ' . checked($use_theme_light, true, false) . '> ' . esc_html__('Respect theme colors in Light mode (do not apply the plugin\'s Light palette).', 'easy-dark-theme-for-astra') . '</label>';
     echo '</td></tr>';
 
     $custom_light = is_array($settings['light_palette'] ?? null) ? $settings['light_palette'] : $defaults['light_palette'];
@@ -431,7 +433,7 @@ final class EDTA_Admin {
 
     // Renderiza label de sección de paletas.
     echo '<tr>';
-    echo '  <th scope="row">' . esc_html__('Colores globales', 'easy-dark-theme-for-astra') . ' ' . $this->help_button('global_colors') . '</th>';
+    echo '  <th scope="row">' . esc_html__('Global colors', 'easy-dark-theme-for-astra') . ' ' . $this->help_button('global_colors') . '</th>';
     echo '  <td></td>';
     echo '</tr>';
 
@@ -446,7 +448,7 @@ final class EDTA_Admin {
     echo '<div class="edta-palette-head">';
       echo '<h3 class="edta-palettes-title edta-palettes-title--light">' .
         $this->icon_sun_svg() .
-        '<span>' . esc_html__('Claro', 'easy-dark-theme-for-astra') . '</span>' .
+        '<span>' . esc_html__('Light', 'easy-dark-theme-for-astra') . '</span>' .
       '</h3>';
       echo '<span id="edta-light-lock-badge" class="edta-palette-status" aria-live="polite"></span>';
     echo '</div>';
@@ -486,7 +488,7 @@ final class EDTA_Admin {
     echo '</div>'; // #edta-light-palette-grid
 
     // Renderiza hint cuando la paleta light está deshabilitada.
-    echo '<p id="edta-light-disabled-hint" style="margin-top:10px;display:' . ($disabled_light ? 'block' : 'none') . ';"><em>' . esc_html__('La paleta Claro está desactivada porque “Usar colores del tema” está activo.', 'easy-dark-theme-for-astra') . '</em></p>';
+    echo '<p id="edta-light-disabled-hint" style="margin-top:10px;display:' . ($disabled_light ? 'block' : 'none') . ';"><em>' . esc_html__('The Light palette is disabled because "Use theme colors" is enabled.', 'easy-dark-theme-for-astra') . '</em></p>';
 
     echo '</div>'; // .edta-palettes-col
 
@@ -495,7 +497,7 @@ final class EDTA_Admin {
     echo '<div class="edta-palette-head">';
       echo '<h3 class="edta-palettes-title edta-palettes-title--dark">' .
         $this->icon_moon_svg() .
-        '<span>' . esc_html__('Oscuro', 'easy-dark-theme-for-astra') . '</span>' .
+        '<span>' . esc_html__('Dark', 'easy-dark-theme-for-astra') . '</span>' .
       '</h3>';
       echo '<span id="edta-dark-lock-badge" class="edta-palette-status" aria-live="polite"></span>';
     echo '</div>';
@@ -546,21 +548,21 @@ final class EDTA_Admin {
 
     // Renderiza card: Accesibilidad.
     echo '<section class="edta-card" id="edta-sec-accessibility">';
-    echo '  <div class="edta-card__header"><h2 class="edta-card__title">' . esc_html__('Accesibilidad', 'easy-dark-theme-for-astra') . '</h2></div>';
+    echo '  <div class="edta-card__header"><h2 class="edta-card__title">' . esc_html__('Accessibility', 'easy-dark-theme-for-astra') . '</h2></div>';
     echo '  <div class="edta-card__body">';
 
-    echo '<p class="edta-muted" style="margin-top:0;">' . esc_html__('Estas opciones ayudan a que el switch sea más cómodo para usuarios con sensibilidad al movimiento o navegación por teclado.', 'easy-dark-theme-for-astra') . '</p>';
+    echo '<p class="edta-muted" style="margin-top:0;">' . esc_html__('These options help make the switch more comfortable for users sensitive to motion or navigating by keyboard.', 'easy-dark-theme-for-astra') . '</p>';
 
     echo '<table class="form-table" role="presentation"><tbody>';
 
     // Renderiza opción: reduced motion.
     $a11y_reduce_motion = !empty($settings['a11y_reduce_motion']);
     echo '<tr>';
-    echo '  <th scope="row">' . esc_html__('Respetar “reduced motion”', 'easy-dark-theme-for-astra') . ' ' . $this->help_button('accessibility') . '</th>';
+    echo '  <th scope="row">' . esc_html__('Respect "reduced motion"', 'easy-dark-theme-for-astra') . ' ' . $this->help_button('accessibility') . '</th>';
     echo '  <td>';
     echo '    <label>';
     echo '      <input type="checkbox" name="' . esc_attr(self::OPTION_KEY) . '[a11y_reduce_motion]" value="1" ' . checked($a11y_reduce_motion, true, false) . ' />';
-    echo '      ' . esc_html__('Si el sistema pide reducir animaciones, el plugin evita transiciones al cambiar tema.', 'easy-dark-theme-for-astra');
+    echo '      ' . esc_html__('If the system requests reduced motion, the plugin avoids transitions when switching themes.', 'easy-dark-theme-for-astra');
     echo '    </label>';
     echo '  </td>';
     echo '</tr>';
@@ -568,11 +570,11 @@ final class EDTA_Admin {
     // Renderiza opción: foco visible.
     $a11y_focus_ring = !empty($settings['a11y_focus_ring']);
     echo '<tr>';
-    echo '  <th scope="row">' . esc_html__('Foco visible (teclado)', 'easy-dark-theme-for-astra') . '</th>';
+    echo '  <th scope="row">' . esc_html__('Visible focus (keyboard)', 'easy-dark-theme-for-astra') . '</th>';
     echo '  <td>';
     echo '    <label>';
     echo '      <input type="checkbox" name="' . esc_attr(self::OPTION_KEY) . '[a11y_focus_ring]" value="1" ' . checked($a11y_focus_ring, true, false) . ' />';
-    echo '      ' . esc_html__('Mejora el contorno de foco del switch cuando se navega con Tab.', 'easy-dark-theme-for-astra');
+    echo '      ' . esc_html__('Improves the focus outline of the switch when navigating with Tab.', 'easy-dark-theme-for-astra');
     echo '    </label>';
     echo '  </td>';
     echo '</tr>';
@@ -582,40 +584,40 @@ final class EDTA_Admin {
     echo '</section>';
 
     // Renderiza submit oculto para disparo desde el sidebar.
-    echo '<input type="submit" id="edta-hidden-submit" style="display:none" value="' . esc_attr__('Guardar cambios', 'easy-dark-theme-for-astra') . '">';
+    echo '<input type="submit" id="edta-hidden-submit" style="display:none" value="' . esc_attr__('Save changes', 'easy-dark-theme-for-astra') . '">';
 
     echo '</form>';
 
     // Renderiza card: Herramientas.
     echo '<section class="edta-card" id="edta-sec-tools" style="margin-top:16px;">';
-    echo '  <div class="edta-card__header"><h2 class="edta-card__title">' . esc_html__('Herramientas', 'easy-dark-theme-for-astra') . '</h2></div>';
+    echo '  <div class="edta-card__header"><h2 class="edta-card__title">' . esc_html__('Tools', 'easy-dark-theme-for-astra') . '</h2></div>';
     echo '  <div class="edta-card__body">';
 
-    echo '<h3>' . esc_html__('Exportar configuración', 'easy-dark-theme-for-astra') . ' ' . $this->help_button('export_settings') . '</h3>';
-    echo '<p>' . esc_html__('Descarga un JSON con todos los ajustes. Nota: se exporta solo la paleta personalizada.', 'easy-dark-theme-for-astra') . '</p>';
+    echo '<h3>' . esc_html__('Export settings', 'easy-dark-theme-for-astra') . ' ' . $this->help_button('export_settings') . '</h3>';
+    echo '<p>' . esc_html__('Download a JSON file with all settings. Note: only the custom palette is exported.', 'easy-dark-theme-for-astra') . '</p>';
     echo '<form method="post" action="' . esc_url(admin_url('admin-post.php')) . '">';
     echo '<input type="hidden" name="action" value="edta_export_settings">';
     wp_nonce_field('edta_export_settings', 'edta_nonce'); // Nonce para exportación.
-    submit_button(__('Exportar JSON', 'easy-dark-theme-for-astra'), 'secondary', 'submit', false, ['title' => __('Exporta un archivo JSON con la configuración.', 'easy-dark-theme-for-astra')]);
+    submit_button(__('Export JSON', 'easy-dark-theme-for-astra'), 'secondary', 'submit', false, ['title' => __('Exports a JSON file with the current settings.', 'easy-dark-theme-for-astra')]);
     echo '</form>';
 
-    echo '<h3 style="margin-top:18px;">' . esc_html__('Importar configuración', 'easy-dark-theme-for-astra') . ' ' . $this->help_button('import_settings') . '</h3>';
-    echo '<p>' . esc_html__('Subí un JSON exportado previamente. La importación aplica como “Paleta personalizada”.', 'easy-dark-theme-for-astra') . '</p>';
+    echo '<h3 style="margin-top:18px;">' . esc_html__('Import settings', 'easy-dark-theme-for-astra') . ' ' . $this->help_button('import_settings') . '</h3>';
+    echo '<p>' . esc_html__('Upload a previously exported JSON file. The import applies as "Custom Palette".', 'easy-dark-theme-for-astra') . '</p>';
     echo '<form method="post" enctype="multipart/form-data" action="' . esc_url(admin_url('admin-post.php')) . '">';
     echo '<input type="hidden" name="action" value="edta_import_settings">';
     wp_nonce_field('edta_import_settings', 'edta_nonce'); // Nonce para importación.
     echo '<input type="file" name="edta_import_file" accept="application/json" required style="display:block;margin-bottom:10px;">';
-    submit_button(__('Importar JSON','easy-dark-theme-for-astra'),'secondary', ['title' => __('Importa un archivo JSON con la configuración.', 'easy-dark-theme-for-astra')]);
+    submit_button(__('Import JSON','easy-dark-theme-for-astra'),'secondary', ['title' => __('Imports a JSON file with the settings.', 'easy-dark-theme-for-astra')]);
     echo '</form>';
 
-    echo '<h3 style="margin-top:18px;">' . esc_html__('Restablecer a valores por defecto', 'easy-dark-theme-for-astra') . ' ' . $this->help_button('reset') . '</h3>';
-    echo '<p>' . esc_html__('Esto reemplaza TODOS los ajustes por los valores por defecto del plugin.', 'easy-dark-theme-for-astra') . '</p>';
+    echo '<h3 style="margin-top:18px;">' . esc_html__('Reset to default values', 'easy-dark-theme-for-astra') . ' ' . $this->help_button('reset') . '</h3>';
+    echo '<p>' . esc_html__('This will replace ALL settings with the plugin\'s default values.', 'easy-dark-theme-for-astra') . '</p>';
     echo '<form method="post" action="' . esc_url(admin_url('admin-post.php')) . '">';
     echo '<input type="hidden" name="action" value="edta_reset_settings">';
     wp_nonce_field('edta_reset_settings', 'edta_nonce'); // Nonce para reset.
-    echo '<p style="margin:0 0 6px 0;"><strong>' . esc_html__('Para confirmar, escribí:', 'easy-dark-theme-for-astra') . ' </strong><code>' . esc_html(self::RESET_CONFIRM_TEXT) . '</code></p>';
+    echo '<p style="margin:0 0 6px 0;"><strong>' . esc_html__('To confirm, type:', 'easy-dark-theme-for-astra') . ' </strong><code>' . esc_html(self::RESET_CONFIRM_TEXT) . '</code></p>';
     echo '<input id="edta-reset-confirm" type="text" name="edta_confirm_name" value="" style="width:320px;" placeholder="' . esc_attr(self::RESET_CONFIRM_TEXT) . '" autocomplete="off">';
-    submit_button(__('Restablecer ahora', 'easy-dark-theme-for-astra'), 'delete', 'edta_reset_submit', false, ['id' => 'edta-reset-submit'], ['title' => __('Reinicia la configuración del plugin a los valores por defecto.', 'easy-dark-theme-for-astra')]);
+    submit_button(__('Reset now', 'easy-dark-theme-for-astra'), 'delete', 'edta_reset_submit', false, ['id' => 'edta-reset-submit'], ['title' => __('Resets the plugin settings to their default values.', 'easy-dark-theme-for-astra')]);
     echo '</form>';
 
     echo '  </div>';
@@ -626,7 +628,7 @@ final class EDTA_Admin {
     // Renderiza sidebar con navegación y guardado.
     echo '<aside class="edta-admin__side">';
     echo '  <div class="edta-card edta-card--side">';
-    echo '    <div class="edta-card__header"><h2 class="edta-card__title">' . esc_html__('Atajos', 'easy-dark-theme-for-astra') . '</h2></div>';
+    echo '    <div class="edta-card__header"><h2 class="edta-card__title">' . esc_html__('Shortcuts', 'easy-dark-theme-for-astra') . '</h2></div>';
     echo '    <div class="edta-card__body">';
     echo '      <ul class="edta-side-links edta-side-links--icons">';
     echo '        <li><a href="#edta-sec-control" data-edta-nav="edta-sec-control">'
@@ -635,7 +637,7 @@ final class EDTA_Admin {
                 . '</a></li>';
     echo '        <li><a href="#edta-sec-animation" data-edta-nav="edta-sec-animation">'
                   . '<svg class="edta-side-ico" viewBox="0 0 24 24" aria-hidden="true"><path d="M3 12h4l3-8 4 16 3-8h4"/></svg>'
-                  . '<span>' . esc_html__('Animación', 'easy-dark-theme-for-astra') . '</span>'
+                  . '<span>' . esc_html__('Animation', 'easy-dark-theme-for-astra') . '</span>'
                 . '</a></li>';
     echo '        <li><a href="#edta-sec-astra" data-edta-nav="edta-sec-astra">'
                   . '<svg class="edta-side-ico" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 3l2.5 6H21l-5 4 2 7-6-4-6 4 2-7-5-4h6.5z"/></svg>'
@@ -643,24 +645,24 @@ final class EDTA_Admin {
                 . '</a></li>';
     echo '        <li><a href="#edta-sec-accessibility" data-edta-nav="edta-sec-accessibility">'
                   . '<svg class="edta-side-ico" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 2a2 2 0 1 0 0 4a2 2 0 0 0 0-4z"/><path d="M4 7h16"/><path d="M12 7v15"/><path d="M7 11l5-3 5 3"/><path d="M7 22l5-7 5 7"/></svg>'
-                  . '<span>' . esc_html__('Accesibilidad', 'easy-dark-theme-for-astra') . '</span>'
+                  . '<span>' . esc_html__('Accessibility', 'easy-dark-theme-for-astra') . '</span>'
                 . '</a></li>';
     echo '        <li><a href="#edta-sec-tools" data-edta-nav="edta-sec-tools">'
                   . '<svg class="edta-side-ico" viewBox="0 0 24 24" aria-hidden="true"><path d="M14.7 6.3a4 4 0 0 0-5.6 5.6l-6.1 6.1 2 2 6.1-6.1a4 4 0 0 0 5.6-5.6l-2.3 2.3-2.3-2.3z"/></svg>'
-                  . '<span>' . esc_html__('Herramientas', 'easy-dark-theme-for-astra') . '</span>'
+                  . '<span>' . esc_html__('Tools', 'easy-dark-theme-for-astra') . '</span>'
                   . '</a></li>';
     echo '      </ul>';
     echo '      <p class="edta-side-hint">' .
-                  esc_html__('Usá el icono', 'easy-dark-theme-for-astra') . ' ' .
+                  esc_html__('Use the', 'easy-dark-theme-for-astra') . ' ' .
                   '<span class="edta-help edta-help--static" aria-hidden="true">i</span>' .
-                  ' ' . esc_html__('para ver ayuda contextual.', 'easy-dark-theme-for-astra') .
+                  ' ' . esc_html__('icon to see contextual help.', 'easy-dark-theme-for-astra') .
                 '</p>';
-    echo '      <div class="edta-side-savebar" role="region" aria-label="' . esc_attr__('Guardado', 'easy-dark-theme-for-astra') . '">';
+    echo '      <div class="edta-side-savebar" role="region" aria-label="' . esc_attr__('Saved', 'easy-dark-theme-for-astra') . '">';
     echo '        <div class="edta-side-savebar__status">';
-    echo '          <span id="edta-unsaved" class="edta-unsaved" aria-live="polite">' . esc_html__('Sin cambios', 'easy-dark-theme-for-astra') . '</span>';
+    echo '          <span id="edta-unsaved" class="edta-unsaved" aria-live="polite">' . esc_html__('No changes', 'easy-dark-theme-for-astra') . '</span>';
     echo '        </div>';
     echo '        <button type="button" class="button button-primary edta-side-save" id="edta-side-save" disabled aria-disabled="true">'
-      . esc_html__('Guardar cambios', 'easy-dark-theme-for-astra') .
+      . esc_html__('Save changes', 'easy-dark-theme-for-astra') .
     '</button>';
     echo '      </div>';
     echo '    </div>';
@@ -669,34 +671,34 @@ final class EDTA_Admin {
 
     // Renderiza sidebar: guía rápida.
     echo '  <div class="edta-card edta-card--side" id="edta-side-guide">';
-    echo '    <div class="edta-card__header"><h2 class="edta-card__title">' . esc_html__('Guía rápida', 'easy-dark-theme-for-astra') . '</h2></div>';
+    echo '    <div class="edta-card__header"><h2 class="edta-card__title">' . esc_html__('Quick guide', 'easy-dark-theme-for-astra') . '</h2></div>';
     echo '    <div class="edta-card__body">';
 
     echo '      <div class="edta-guide">';
 
     echo '        <div class="edta-guide__item">
-                  <button type="button" class="edta-guide__toggle">Uso del Shortcode</button>
+                  <button type="button" class="edta-guide__toggle">' . esc_html__('Using the Shortcode', 'easy-dark-theme-for-astra') . '</button>
                   <div class="edta-guide__content">
-                    <p>Puedes insertar el switch manualmente usando el shortcode:</p>
+                    <p>' . esc_html__('You can insert the toggle manually using the shortcode:', 'easy-dark-theme-for-astra') . '</p>
                     <code>[edta_toggle]</code>
-                    <p>Puedes colocarlo en páginas, entradas, headers personalizados o constructores visuales.</p>
+                    <p>' . esc_html__('You can place it on pages, posts, custom headers, or visual builders.', 'easy-dark-theme-for-astra') . '</p>
                   </div>
                 </div>';
 
     echo '        <div class="edta-guide__item">
-                  <button type="button" class="edta-guide__toggle">Uso como Widget</button>
+                  <button type="button" class="edta-guide__toggle">' . esc_html__('Using as a Widget', 'easy-dark-theme-for-astra') . '</button>
                   <div class="edta-guide__content">
-                    <p>Ve a <strong>Apariencia → Widgets</strong> y añade el widget <em>Easy Dark Theme Toggle</em> en el área deseada.</p>
-                    <p>Ideal para footer, sidebar o header.</p>
+                    <p>' . esc_html__('Go to', 'easy-dark-theme-for-astra') . ' <strong>' . esc_html__('Appearance → Widgets', 'easy-dark-theme-for-astra') . '</strong> ' . esc_html__('and add the', 'easy-dark-theme-for-astra') . ' <em>Easy Dark Theme Toggle</em> ' . esc_html__('widget to the desired area.', 'easy-dark-theme-for-astra') . '</p>
+                    <p>' . esc_html__('Ideal for footer, sidebar, or header.', 'easy-dark-theme-for-astra') . '</p>
                   </div>
                 </div>';
 
     echo '        <div class="edta-guide__item">
-                  <button type="button" class="edta-guide__toggle">Cómo funcionan las paletas</button>
+                  <button type="button" class="edta-guide__toggle">' . esc_html__('How palettes work', 'easy-dark-theme-for-astra') . '</button>
                   <div class="edta-guide__content">
-                    <p>El plugin no detecta automáticamente los colores de tu sitio.</p>
-                    <p>Debes configurar primero los colores base en <strong>Astra → Personalizar → Global Colors</strong>.</p>
-                    <p>Luego el plugin reemplaza esos valores utilizando las paletas Light/Dark configuradas aquí.</p>
+                    <p>' . esc_html__('The plugin does not automatically detect your site\'s colors.', 'easy-dark-theme-for-astra') . '</p>
+                    <p>' . esc_html__('You must first set your base colors in', 'easy-dark-theme-for-astra') . ' <strong>' . esc_html__('Astra → Customize → Global Colors', 'easy-dark-theme-for-astra') . '</strong>.</p>
+                    <p>' . esc_html__('The plugin then replaces those values using the Light/Dark palettes configured here.', 'easy-dark-theme-for-astra') . '</p>
                   </div>
                 </div>';
 
@@ -996,11 +998,11 @@ final class EDTA_Admin {
     $roles = [
       'Brand',
       'Alt Brand',
-      'Encabezado',
-      'Texto',
-      'Principal',
+      'Heading',
+      'Text',
+      'Primary',
       'Secondary',
-      'Borde',
+      'Border',
       'Subtle BG',
       'Extra',
     ];
@@ -1045,7 +1047,7 @@ final class EDTA_Admin {
     // Advierte al usuario si Astra no está activo.
     if (!EDTA_Astra_Bridge::is_astra_active()) {
       echo '<div class="notice notice-warning"><p>';
-      echo esc_html__('Este plugin está diseñado para Astra. Activá Astra para usar las variables --ast-global-color-*.', 'easy-dark-theme-for-astra');
+      echo esc_html__('This plugin is designed for Astra. Activate Astra to use the --ast-global-color-* variables.', 'easy-dark-theme-for-astra');
       echo '</p></div>';
     }
   } // Fin de EDTA_Admin::maybe_show_astra_notice()

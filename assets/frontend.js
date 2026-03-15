@@ -267,7 +267,9 @@
     el.setAttribute("role", "switch");
     el.setAttribute("aria-checked", currentMode === "dark" ? "true" : "false");
 
-    const nextLabel = currentMode === "dark" ? "Cambiar a modo claro" : "Cambiar a modo oscuro";
+    const nextLabel = currentMode === "dark"
+      ? ((window.EDTA_CONFIG && window.EDTA_CONFIG.i18n && window.EDTA_CONFIG.i18n.switchToLight) || "Switch to light mode")
+      : ((window.EDTA_CONFIG && window.EDTA_CONFIG.i18n && window.EDTA_CONFIG.i18n.switchToDark) || "Switch to dark mode");
     el.setAttribute("aria-label", nextLabel);
     el.setAttribute("title", nextLabel);
 

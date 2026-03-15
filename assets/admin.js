@@ -791,9 +791,9 @@
 
       if ($status.length) {
         if (dirty) {
-          $status.text("Cambios sin guardar").addClass("is-dirty").removeClass("is-saved");
+          $status.text((window.EDTA_I18N && window.EDTA_I18N.unsaved) || "Unsaved changes").addClass("is-dirty").removeClass("is-saved");
         } else {
-          $status.text("Sin cambios").removeClass("is-dirty").addClass("is-saved");
+          $status.text((window.EDTA_I18N && window.EDTA_I18N.no_changes) || "No changes").removeClass("is-dirty").addClass("is-saved");
         }
       }
     } // Fin de setDirty()
@@ -829,7 +829,7 @@
     // Estado de envío: bloquea recálculos y actualiza el texto de estado.
     $form.off("submit.edtaDirty").on("submit.edtaDirty", function () {
       isSubmitting = true;
-      if ($status.length) $status.text("Guardando…").removeClass("is-dirty").addClass("is-saved");
+      if ($status.length) $status.text((window.EDTA_I18N && window.EDTA_I18N.saving) || "Saving…").removeClass("is-dirty").addClass("is-saved");
     });
   } // Fin de initSideSavebar()
 
@@ -886,8 +886,8 @@
 
     // Free preset: ambas paletas quedan bloqueadas.
     if (isPresetLocked) {
-      setBadge($light, true, "Paleta bloqueada por configuración.");
-      setBadge($dark, true, "Paleta bloqueada por configuración.");
+      setBadge($light, true, (window.EDTA_I18N && window.EDTA_I18N.palette_locked) || "Palette locked.");
+      setBadge($dark, true, (window.EDTA_I18N && window.EDTA_I18N.palette_locked) || "Palette locked.");
       return;
     }
 
@@ -895,7 +895,7 @@
     setBadge($dark, false, "");
 
     // Custom: light depende de "usar colores del tema".
-    if (useThemeLight) setBadge($light, true, "Paleta bloqueada por configuración.");
+    if (useThemeLight) setBadge($light, true, (window.EDTA_I18N && window.EDTA_I18N.palette_locked) || "Palette locked.");
     else setBadge($light, false, "");
   } // Fin de updatePaletteBadges()
 

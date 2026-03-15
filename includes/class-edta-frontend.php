@@ -42,6 +42,10 @@ final class EDTA_Frontend {
       'enableTransitions' => !empty($settings['enable_transitions']),
       'a11yReduceMotion'  => !empty($settings['a11y_reduce_motion']),
       'a11yFocusRing'     => !empty($settings['a11y_focus_ring']),
+      'i18n' => [
+        'switchToLight' => esc_html__('Switch to light mode', 'easy-dark-theme-for-astra'),
+        'switchToDark'  => esc_html__('Switch to dark mode', 'easy-dark-theme-for-astra'),
+      ],
     ]) . ';', 'before');
 
     // Genera e inyecta CSS de paletas Astra (light/dark).
@@ -354,8 +358,8 @@ final class EDTA_Frontend {
 
     // Configuración de accesibilidad (switch).
     $html .= ' role="switch" aria-checked="false"';
-    $html .= ' aria-label="' . esc_attr__('Cambiar tema', 'easy-dark-theme-for-astra') . '"';
-    $html .= ' title="' . esc_attr__('Cambiar tema', 'easy-dark-theme-for-astra') . '">';
+    $html .= ' aria-label="' . esc_attr__('Switch theme', 'easy-dark-theme-for-astra') . '"';
+    $html .= ' title="' . esc_attr__('Switch theme', 'easy-dark-theme-for-astra') . '">';
 
     // Renderiza ambos estados para evitar flicker y permitir que CSS/JS muestre el correcto.
     $html .= '<span class="edta-toggle__icon edta-toggle__icon--sun" aria-hidden="true">' . $sunSvg . '</span>';
@@ -401,7 +405,7 @@ if (!class_exists('EDTA_Toggle_Widget')) {
       parent::__construct(
         'edta_toggle_widget',
         __('EDTA — Theme Toggle', 'easy-dark-theme-for-astra'),
-        ['description' => __('Botón de cambio de tema (sincronizado con el flotante).', 'easy-dark-theme-for-astra')]
+        ['description' => __('Theme toggle button (synchronized with the floating button).', 'easy-dark-theme-for-astra')]
       );
     } // Fin de EDTA_Toggle_Widget::__construct()
 
