@@ -3,7 +3,7 @@ msgstr ""
 "Project-Id-Version: Easy Dark Theme for Astra\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2026-03-15 07:45+0000\n"
-"PO-Revision-Date: 2026-03-15 08:47+0000\n"
+"PO-Revision-Date: 2026-03-19 09:14+0000\n"
 "Last-Translator: \n"
 "Language-Team: French (France)\n"
 "Language: fr_FR\n"
@@ -15,7 +15,7 @@ msgstr ""
 "X-Loco-Version: 2.8.3; wp-6.9.4; php-8.2.27\n"
 "X-Domain: easy-dark-theme-for-astra"
 
-#: includes/class-edta-admin.php:551 includes/class-edta-admin.php:648
+#: includes/class-edta-admin.php:554 includes/class-edta-admin.php:651
 msgid "Accessibility"
 msgstr "Accessibilité"
 
@@ -27,23 +27,23 @@ msgstr ""
 "Permet de masquer le bouton selon l'appareil (mobile/bureau) ou de le "
 "masquer toujours."
 
-#: includes/class-edta-admin.php:356
+#: includes/class-edta-admin.php:359
 msgid "Always hide"
 msgstr "Toujours masquer"
 
-#: includes/class-edta-admin.php:356
+#: includes/class-edta-admin.php:359
 msgid "Always show"
 msgstr "Toujours afficher"
 
-#: includes/class-edta-admin.php:691
+#: includes/class-edta-admin.php:694
 msgid "and add the"
 msgstr "et ajoutez le widget"
 
-#: includes/class-edta-admin.php:369 includes/class-edta-admin.php:640
+#: includes/class-edta-admin.php:372 includes/class-edta-admin.php:643
 msgid "Animation"
 msgstr "Animation"
 
-#: includes/class-edta-admin.php:691
+#: includes/class-edta-admin.php:694
 msgid "Appearance → Widgets"
 msgstr "Apparence → Widgets"
 
@@ -55,60 +55,60 @@ msgstr ""
 "Applique une transition brève UNIQUEMENT lors du changement de thème. Elle "
 "ne reste pas active en permanence."
 
-#: includes/class-edta-admin.php:392 includes/class-edta-admin.php:644
+#: includes/class-edta-admin.php:395 includes/class-edta-admin.php:647
 msgid "Astra Global Colors"
 msgstr "Astra Global Colors"
 
-#: includes/class-edta-admin.php:700
+#: includes/class-edta-admin.php:703
 msgid "Astra → Customize → Global Colors"
 msgstr "Astra → Personnaliser → Couleurs globales"
 
-#: includes/class-edta-admin.php:267
+#: includes/class-edta-admin.php:270
 msgid "Auto (system)"
 msgstr "Auto (système)"
 
-#: includes/class-edta-admin.php:325
+#: includes/class-edta-admin.php:328
 msgid "Bottom Left"
 msgstr "En bas à gauche"
 
-#: includes/class-edta-admin.php:325
+#: includes/class-edta-admin.php:328
 msgid "Bottom Right"
 msgstr "En bas à droite"
 
-#: includes/class-edta-admin.php:268
+#: includes/class-edta-admin.php:271
 msgid "Button"
 msgstr "Bouton"
 
-#: includes/class-edta-admin.php:313
+#: includes/class-edta-admin.php:316
 msgid "Button position"
 msgstr "Position du bouton"
 
-#: includes/class-edta-admin.php:286
+#: includes/class-edta-admin.php:289
 msgid "Button style"
 msgstr "Style du bouton"
 
-#: includes/class-edta-admin.php:353
+#: includes/class-edta-admin.php:356
 msgid "Button visibility"
 msgstr "Visibilité du bouton"
 
-#: includes/class-edta-admin.php:260 includes/class-edta-admin.php:636
+#: includes/class-edta-admin.php:263 includes/class-edta-admin.php:639
 msgid "Control"
 msgstr "Contrôle"
 
-#: includes/class-edta-admin.php:265
+#: includes/class-edta-admin.php:268
 msgid "Control mode"
 msgstr "Mode de contrôle"
 
-#: includes/class-edta-admin.php:409
+#: includes/class-edta-admin.php:412
 msgid "Custom Palette"
 msgstr "Palette personnalisée"
 
-#: includes/class-edta-admin.php:275 includes/class-edta-admin.php:302
-#: includes/class-edta-admin.php:500
+#: includes/class-edta-admin.php:278 includes/class-edta-admin.php:305
+#: includes/class-edta-admin.php:503
 msgid "Dark"
 msgstr "Sombre"
 
-#: includes/class-edta-admin.php:272
+#: includes/class-edta-admin.php:275
 msgid "Default mode"
 msgstr "Mode par défaut"
 
@@ -124,7 +124,7 @@ msgstr ""
 msgid "Defines the appearance of the theme switch."
 msgstr "Définit l'apparence du bouton de changement de thème."
 
-#: includes/class-edta-admin.php:597
+#: includes/class-edta-admin.php:600
 msgid ""
 "Download a JSON file with all settings. Note: only the custom palette is "
 "exported."
@@ -133,8 +133,8 @@ msgstr ""
 "personnalisée est exportée."
 
 #. Name of the plugin
-#: includes/class-edta-admin.php:135 includes/class-edta-admin.php:136
-#: includes/class-edta-admin.php:183 includes/class-edta-admin.php:226
+#: includes/class-edta-admin.php:138 includes/class-edta-admin.php:139
+#: includes/class-edta-admin.php:186 includes/class-edta-admin.php:229
 msgid "Easy Dark Theme for Astra"
 msgstr "Easy Dark Theme for Astra"
 
@@ -142,27 +142,31 @@ msgstr "Easy Dark Theme for Astra"
 msgid "EDTA — Theme Toggle"
 msgstr "EDTA — Commutateur de thème"
 
-#: includes/class-edta-admin.php:378
+#: includes/class-edta-admin.php:381
 msgid "Enable transition when switching theme"
 msgstr "Activer la transition lors du changement de thème"
 
-#: includes/class-edta-admin.php:233
+#: includes/class-edta-admin.php:1095
+msgid "Enjoying Easy Dark Theme for Astra?"
+msgstr "Vous appréciez Easy Dark Theme for Astra ?"
+
+#: includes/class-edta-admin.php:236
 msgid "Export generated."
 msgstr "Export généré."
 
-#: includes/class-edta-admin.php:601
+#: includes/class-edta-admin.php:604
 msgid "Export JSON"
 msgstr "Exporter JSON"
 
-#: includes/class-edta-admin.php:596
+#: includes/class-edta-admin.php:599
 msgid "Export settings"
 msgstr "Exporter les paramètres"
 
-#: includes/class-edta-admin.php:601
+#: includes/class-edta-admin.php:604
 msgid "Exports a JSON file with the current settings."
 msgstr "Exporte un fichier JSON avec la configuration actuelle."
 
-#: includes/class-edta-admin.php:403
+#: includes/class-edta-admin.php:406
 msgid "Free Preset Palette"
 msgstr "Palette prédéfinie gratuite"
 
@@ -183,11 +187,11 @@ msgstr ""
 "Génère un fichier JSON avec vos paramètres actuels pour les enregistrer ou "
 "les transférer vers un autre site."
 
-#: includes/class-edta-admin.php:436
+#: includes/class-edta-admin.php:439
 msgid "Global colors"
 msgstr "Couleurs globales"
 
-#: includes/class-edta-admin.php:691
+#: includes/class-edta-admin.php:694
 msgid "Go to"
 msgstr "Allez dans"
 
@@ -195,19 +199,19 @@ msgstr "Allez dans"
 msgid "Help"
 msgstr "Aide"
 
-#: includes/class-edta-admin.php:356
+#: includes/class-edta-admin.php:359
 msgid "Hide on desktop"
 msgstr "Masquer sur bureau"
 
-#: includes/class-edta-admin.php:356
+#: includes/class-edta-admin.php:359
 msgid "Hide on mobile"
 msgstr "Masquer sur mobile"
 
-#: includes/class-edta-admin.php:332
+#: includes/class-edta-admin.php:335
 msgid "Horizontal spacing"
 msgstr "Espacement horizontal"
 
-#: includes/class-edta-admin.php:697
+#: includes/class-edta-admin.php:700
 msgid "How palettes work"
 msgstr "Fonctionnement des palettes"
 
@@ -219,19 +223,31 @@ msgstr "https://jaelmeire.vercel.app/"
 msgid "https://wordpress.org/plugins/easy-dark-theme-for-astra/"
 msgstr "https://fr.wordpress.org/plugins/easy-dark-theme-for-astra/"
 
-#: includes/class-edta-admin.php:291
+#: includes/class-edta-admin.php:1100
+msgid "I already did"
+msgstr "Je l'ai déjà fait"
+
+#: includes/class-edta-admin.php:294
 msgid "Icon"
 msgstr "Icône"
 
-#: includes/class-edta-admin.php:658
+#: includes/class-edta-admin.php:661
 msgid "icon to see contextual help."
 msgstr "icône pour voir l'aide contextuelle."
 
-#: includes/class-edta-admin.php:692
+#: includes/class-edta-admin.php:695
 msgid "Ideal for footer, sidebar, or header."
 msgstr "Idéal pour le pied de page, la barre latérale ou l'en-tête."
 
-#: includes/class-edta-admin.php:565
+#: includes/class-edta-admin.php:1096
+msgid ""
+"If the plugin has been useful to you, a 5-star review helps a lot and takes "
+"less than a minute. Thank you!"
+msgstr ""
+"Si le plugin vous a été utile, un avis 5 étoiles aide beaucoup et prend "
+"moins d'une minute. Merci !"
+
+#: includes/class-edta-admin.php:568
 msgid ""
 "If the system requests reduced motion, the plugin avoids transitions when "
 "switching themes."
@@ -239,29 +255,29 @@ msgstr ""
 "Si le système demande moins d'animations, le plugin évite les transitions "
 "lors du changement de thème."
 
-#: includes/class-edta-admin.php:240
+#: includes/class-edta-admin.php:243
 msgid "Import failed: file upload error."
 msgstr "Échec de l'importation : erreur lors du téléchargement du fichier."
 
-#: includes/class-edta-admin.php:239
+#: includes/class-edta-admin.php:242
 msgid "Import failed: the JSON file is invalid or does not contain settings."
 msgstr ""
 "Échec de l'importation : le fichier JSON est invalide ou ne contient pas de "
 "paramètres."
 
-#: includes/class-edta-admin.php:610
+#: includes/class-edta-admin.php:613
 msgid "Import JSON"
 msgstr "Importer JSON"
 
-#: includes/class-edta-admin.php:604
+#: includes/class-edta-admin.php:607
 msgid "Import settings"
 msgstr "Importer les paramètres"
 
-#: includes/class-edta-admin.php:610
+#: includes/class-edta-admin.php:613
 msgid "Imports a JSON file with the settings."
 msgstr "Importe un fichier JSON avec la configuration."
 
-#: includes/class-edta-admin.php:577
+#: includes/class-edta-admin.php:580
 msgid "Improves the focus outline of the switch when navigating with Tab."
 msgstr "Améliore le contour de focus du bouton lors de la navigation avec Tab."
 
@@ -272,7 +288,7 @@ msgstr ""
 "En mode Bouton, mémorise le thème choisi par l'utilisateur pour le conserver "
 "entre les visites."
 
-#: includes/class-edta-admin.php:242
+#: includes/class-edta-admin.php:245
 msgid "Incorrect confirmation. Reset was not applied."
 msgstr "Confirmation incorrecte. La réinitialisation n'a pas été appliquée."
 
@@ -280,8 +296,8 @@ msgstr "Confirmation incorrecte. La réinitialisation n'a pas été appliquée."
 msgid "Jael Meire"
 msgstr "Jael Meire"
 
-#: includes/class-edta-admin.php:275 includes/class-edta-admin.php:301
-#: includes/class-edta-admin.php:451
+#: includes/class-edta-admin.php:278 includes/class-edta-admin.php:304
+#: includes/class-edta-admin.php:454
 msgid "Light"
 msgstr "Clair"
 
@@ -309,15 +325,15 @@ msgstr ""
 "Associe votre palette aux variables Astra (--ast-global-color-0..8). Cela "
 "affecte le design du thème lors du changement de mode."
 
-#: includes/class-edta-admin.php:300
+#: includes/class-edta-admin.php:303
 msgid "Mode"
 msgstr "Mode"
 
-#: includes/class-edta-admin.php:185 includes/class-edta-admin.php:662
+#: includes/class-edta-admin.php:188 includes/class-edta-admin.php:665
 msgid "No changes"
 msgstr "Aucune modification"
 
-#: includes/class-edta-admin.php:241 includes/class-edta-admin.php:243
+#: includes/class-edta-admin.php:244 includes/class-edta-admin.php:246
 msgid "Not authorized."
 msgstr "Non autorisé."
 
@@ -337,19 +353,19 @@ msgstr ""
 "Options pour améliorer l'accessibilité (support du mouvement réduit, focus "
 "visible, etc.). Recommandé de les garder activées."
 
-#: includes/class-edta-admin.php:397
+#: includes/class-edta-admin.php:400
 msgid "Palette"
 msgstr "Palette"
 
-#: includes/class-edta-admin.php:187
+#: includes/class-edta-admin.php:190
 msgid "Palette locked."
 msgstr "Palette verrouillée."
 
-#: includes/class-edta-admin.php:293
+#: includes/class-edta-admin.php:296
 msgid "Pill"
 msgstr "Pilule"
 
-#: includes/class-edta-admin.php:323
+#: includes/class-edta-admin.php:326
 msgid "Position"
 msgstr "Position"
 
@@ -363,35 +379,39 @@ msgstr ""
 "toujours positif et appliqué automatiquement selon la position choisie "
 "(haut/bas et gauche/droite)."
 
-#: includes/class-edta-admin.php:299 includes/class-edta-admin.php:307
+#: includes/class-edta-admin.php:302 includes/class-edta-admin.php:310
 msgid "Preview"
 msgstr "Aperçu"
 
-#: includes/class-edta-admin.php:674
+#: includes/class-edta-admin.php:677
 msgid "Quick guide"
 msgstr "Guide rapide"
 
-#: includes/class-edta-admin.php:282
+#: includes/class-edta-admin.php:285
 msgid "Remember preference"
 msgstr "Mémoriser la préférence"
 
-#: includes/class-edta-admin.php:620
+#: includes/class-edta-admin.php:1101
+msgid "Remind me later"
+msgstr "Me le rappeler plus tard"
+
+#: includes/class-edta-admin.php:623
 msgid "Reset now"
 msgstr "Réinitialiser maintenant"
 
-#: includes/class-edta-admin.php:613
+#: includes/class-edta-admin.php:616
 msgid "Reset to default values"
 msgstr "Réinitialiser aux valeurs par défaut"
 
-#: includes/class-edta-admin.php:620
+#: includes/class-edta-admin.php:623
 msgid "Resets the plugin settings to their default values."
 msgstr "Réinitialise les paramètres du plugin à leurs valeurs par défaut."
 
-#: includes/class-edta-admin.php:561
+#: includes/class-edta-admin.php:564
 msgid "Respect \"reduced motion\""
 msgstr "Respecter le \"mouvement réduit\""
 
-#: includes/class-edta-admin.php:418
+#: includes/class-edta-admin.php:421
 msgid ""
 "Respect theme colors in Light mode (do not apply the plugin's Light palette)."
 msgstr ""
@@ -406,32 +426,32 @@ msgstr ""
 "Restaure les paramètres du plugin à leurs valeurs par défaut. Nécessite une "
 "confirmation pour éviter les réinitialisations accidentelles."
 
-#: includes/class-edta-admin.php:587 includes/class-edta-admin.php:665
+#: includes/class-edta-admin.php:590 includes/class-edta-admin.php:668
 msgid "Save changes"
 msgstr "Enregistrer les modifications"
 
-#: includes/class-edta-admin.php:283
+#: includes/class-edta-admin.php:286
 msgid "Save the chosen mode in the browser (button mode only)."
 msgstr ""
 "Enregistrer le mode choisi dans le navigateur (mode bouton uniquement)."
 
-#: includes/class-edta-admin.php:660
+#: includes/class-edta-admin.php:663
 msgid "Saved"
 msgstr "Enregistré"
 
-#: includes/class-edta-admin.php:186
+#: includes/class-edta-admin.php:189
 msgid "Saving…"
 msgstr "Enregistrement…"
 
-#: includes/class-edta-admin.php:231
+#: includes/class-edta-admin.php:234
 msgid "Settings imported successfully."
 msgstr "Paramètres importés avec succès."
 
-#: includes/class-edta-admin.php:232
+#: includes/class-edta-admin.php:235
 msgid "Settings restored to default values."
 msgstr "Paramètres réinitialisés aux valeurs par défaut."
 
-#: includes/class-edta-admin.php:631
+#: includes/class-edta-admin.php:634
 msgid "Shortcuts"
 msgstr "Raccourcis"
 
@@ -447,25 +467,25 @@ msgstr "Passer en mode sombre"
 msgid "Switch to light mode"
 msgstr "Passer en mode clair"
 
-#: includes/class-edta-admin.php:275
+#: includes/class-edta-admin.php:278
 msgid "System"
 msgstr "Système"
 
-#: includes/class-edta-admin.php:292
+#: includes/class-edta-admin.php:295
 msgid "Text"
 msgstr "Texte"
 
-#: includes/class-edta-admin.php:491
+#: includes/class-edta-admin.php:494
 msgid "The Light palette is disabled because \"Use theme colors\" is enabled."
 msgstr ""
 "La palette Claire est désactivée car \"Utiliser les couleurs du thème\" est "
 "activé."
 
-#: includes/class-edta-admin.php:699
+#: includes/class-edta-admin.php:702
 msgid "The plugin does not automatically detect your site's colors."
 msgstr "Le plugin ne détecte pas automatiquement les couleurs de votre site."
 
-#: includes/class-edta-admin.php:701
+#: includes/class-edta-admin.php:704
 msgid ""
 "The plugin then replaces those values using the Light/Dark palettes "
 "configured here."
@@ -477,7 +497,7 @@ msgstr ""
 msgid "Theme toggle button (synchronized with the floating button)."
 msgstr "Bouton de changement de thème (synchronisé avec le bouton flottant)."
 
-#: includes/class-edta-admin.php:554
+#: includes/class-edta-admin.php:557
 msgid ""
 "These options help make the switch more comfortable for users sensitive to "
 "motion or navigating by keyboard."
@@ -485,7 +505,7 @@ msgstr ""
 "Ces options rendent le bouton plus confortable pour les utilisateurs "
 "sensibles au mouvement ou naviguant au clavier."
 
-#: includes/class-edta-admin.php:1050
+#: includes/class-edta-admin.php:1130
 msgid ""
 "This plugin is designed for Astra. Activate Astra to use the --ast-global-"
 "color-* variables."
@@ -493,36 +513,36 @@ msgstr ""
 "Ce plugin est conçu pour Astra. Activez Astra pour utiliser les variables --"
 "ast-global-color-*."
 
-#: includes/class-edta-admin.php:614
+#: includes/class-edta-admin.php:617
 msgid "This will replace ALL settings with the plugin's default values."
 msgstr ""
 "Cela remplacera TOUS les paramètres par les valeurs par défaut du plugin."
 
-#: includes/class-edta-admin.php:618
+#: includes/class-edta-admin.php:621
 msgid "To confirm, type:"
 msgstr "Pour confirmer, tapez :"
 
-#: includes/class-edta-admin.php:593 includes/class-edta-admin.php:652
+#: includes/class-edta-admin.php:596 includes/class-edta-admin.php:655
 msgid "Tools"
 msgstr "Outils"
 
-#: includes/class-edta-admin.php:325
+#: includes/class-edta-admin.php:328
 msgid "Top Left"
 msgstr "En haut à gauche"
 
-#: includes/class-edta-admin.php:325
+#: includes/class-edta-admin.php:328
 msgid "Top Right"
 msgstr "En haut à droite"
 
-#: includes/class-edta-admin.php:374
+#: includes/class-edta-admin.php:377
 msgid "Transition"
 msgstr "Transition"
 
-#: includes/class-edta-admin.php:184
+#: includes/class-edta-admin.php:187
 msgid "Unsaved changes"
 msgstr "Modifications non enregistrées"
 
-#: includes/class-edta-admin.php:605
+#: includes/class-edta-admin.php:608
 msgid ""
 "Upload a previously exported JSON file. The import applies as \"Custom "
 "Palette\"."
@@ -530,27 +550,27 @@ msgstr ""
 "Chargez un fichier JSON exporté précédemment. L'importation s'applique comme "
 "\"Palette personnalisée\"."
 
-#: includes/class-edta-admin.php:656
+#: includes/class-edta-admin.php:659
 msgid "Use the"
 msgstr "Utilisez l'"
 
-#: includes/class-edta-admin.php:417
+#: includes/class-edta-admin.php:420
 msgid "Use theme colors (Light)"
 msgstr "Utiliser les couleurs du thème (Clair)"
 
-#: includes/class-edta-admin.php:689
+#: includes/class-edta-admin.php:692
 msgid "Using as a Widget"
 msgstr "Utilisation en tant que Widget"
 
-#: includes/class-edta-admin.php:680
+#: includes/class-edta-admin.php:683
 msgid "Using the Shortcode"
 msgstr "Utilisation du Shortcode"
 
-#: includes/class-edta-admin.php:341
+#: includes/class-edta-admin.php:344
 msgid "Vertical spacing"
 msgstr "Espacement vertical"
 
-#: includes/class-edta-admin.php:573
+#: includes/class-edta-admin.php:576
 msgid "Visible focus (keyboard)"
 msgstr "Focus visible (clavier)"
 
@@ -562,20 +582,24 @@ msgstr ""
 "Quand cette option est activée, le thème Clair n'utilisera pas les couleurs "
 "du plugin. Les couleurs propres d'Astra seront utilisées à la place."
 
-#: includes/class-edta-admin.php:691
+#: includes/class-edta-admin.php:694
 msgid "widget to the desired area."
 msgstr "dans la zone souhaitée."
 
-#: includes/class-edta-admin.php:682
+#: includes/class-edta-admin.php:685
 msgid "You can insert the toggle manually using the shortcode:"
 msgstr "Vous pouvez insérer le bouton manuellement avec le shortcode :"
 
-#: includes/class-edta-admin.php:684
+#: includes/class-edta-admin.php:687
 msgid "You can place it on pages, posts, custom headers, or visual builders."
 msgstr ""
 "Vous pouvez le placer sur des pages, articles, en-têtes personnalisés ou "
 "constructeurs visuels."
 
-#: includes/class-edta-admin.php:700
+#: includes/class-edta-admin.php:703
 msgid "You must first set your base colors in"
 msgstr "Vous devez d'abord définir vos couleurs de base dans"
+
+#: includes/class-edta-admin.php:1099
+msgid "⭐ Leave a review"
+msgstr "⭐ Laisser un avis"

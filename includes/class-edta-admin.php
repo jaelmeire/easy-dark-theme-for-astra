@@ -105,6 +105,9 @@ final class EDTA_Admin {
     add_action('admin_init', [$this, 'register_settings']); // Registra settings.
     add_action('admin_enqueue_scripts', [$this, 'enqueue_assets']); // Encola assets del admin.
     add_action('admin_notices', [$this, 'maybe_show_astra_notice']); // Muestra aviso si Astra no está activo.
+    add_action('admin_notices', [$this, 'maybe_show_review_notice']); // Muestra aviso de valoración.
+    add_action('admin_post_edta_dismiss_review', [$this, 'handle_dismiss_review']); // Handler para descartar aviso de valoración.
+    add_action('admin_post_edta_snooze_review', [$this, 'handle_snooze_review']); // Handler para posponer aviso de valoración.
 
     add_action('admin_post_edta_export_settings', [$this, 'handle_export_settings']); // Handler exportar ajustes.
     add_action('admin_post_edta_import_settings', [$this, 'handle_import_settings']); // Handler importar ajustes.
@@ -952,6 +955,11 @@ final class EDTA_Admin {
       $out['dark_palette']  = $this->sanitize_palette_array($existing_dark, $defaults['dark_palette']);
     }
 
+    // Registra que el usuario guardó al menos una vez (para el aviso de valoración).
+    if (!get_option('edta_settings_saved_once')) {
+      update_option('edta_settings_saved_once', true, false);
+    }
+
     return wp_parse_args($out, $defaults); // Completa cualquier clave faltante con defaults.
   } // Fin de EDTA_Admin::sanitize_settings()
 
@@ -1038,6 +1046,80 @@ final class EDTA_Admin {
       "#00010A", // Extra
     ];
   } // Fin de EDTA_Admin::free_dark_palette()
+
+  // Determina si el aviso de valoración debe mostrarse.
+  private function should_show_review_notice(): bool {
+    // Solo en la página del plugin.
+    $screen = function_exists('get_current_screen') ? get_current_screen() : null;
+    if (!$screen || $screen->id !== 'toplevel_page_edta-settings') return false;
+
+    // Si ya fue descartado permanentemente, no mostrar nunca más.
+    if (get_option('edta_review_dismissed')) return false;
+
+    // Si está pospuesto, verificar si ya pasaron 7 días.
+    $snoozed_until = (int) get_option('edta_review_snoozed_until', 0);
+    if ($snoozed_until > time()) return false;
+
+    // Verificar que el plugin lleve al menos 7 días instalado.
+    $installed_on = (int) get_option('edta_installed_on', 0);
+    if (!$installed_on) {
+      // Primera vez: registrar fecha de instalación.
+      update_option('edta_installed_on', time(), false);
+      return false;
+    }
+    if ((time() - $installed_on) < (7 * DAY_IN_SECONDS)) return false;
+
+    // Verificar que el usuario haya guardado al menos una vez.
+    if (!get_option('edta_settings_saved_once')) return false;
+
+    return true;
+  } // Fin de EDTA_Admin::should_show_review_notice()
+
+  // Renderiza el aviso de valoración en el admin.
+  public function maybe_show_review_notice(): void {
+    if (!$this->should_show_review_notice()) return;
+
+    $dismiss_url = wp_nonce_url(
+      admin_url('admin-post.php?action=edta_dismiss_review'),
+      'edta_dismiss_review'
+    );
+    $snooze_url = wp_nonce_url(
+      admin_url('admin-post.php?action=edta_snooze_review'),
+      'edta_snooze_review'
+    );
+    $review_url = 'https://wordpress.org/support/plugin/easy-dark-theme-for-astra/reviews/#new-post';
+
+    echo '<div class="notice notice-success" style="padding:16px;border-left-color:#00a32a;">';
+    echo '<div style="display:flex;align-items:center;gap:14px;">';
+    echo '<span style="font-size:32px;line-height:1;flex-shrink:0;" aria-hidden="true">⭐</span>';
+    echo '<div style="flex:1;">';
+    echo '<p style="margin:0 0 4px 0;font-size:14px;font-weight:600;">' . esc_html__('Enjoying Easy Dark Theme for Astra?', 'easy-dark-theme-for-astra') . '</p>';
+    echo '<p style="margin:0 0 12px 0;color:#50575e;font-size:13px;">' . esc_html__('If the plugin has been useful to you, a 5-star review helps a lot and takes less than a minute. Thank you!', 'easy-dark-theme-for-astra') . '</p>';
+    echo '<div style="display:flex;align-items:center;gap:12px;flex-wrap:wrap;">';
+    echo '<a href="' . esc_url($review_url) . '" target="_blank" rel="noopener noreferrer" class="button button-primary">' . esc_html__('⭐ Leave a review', 'easy-dark-theme-for-astra') . '</a>';
+    echo '<a href="' . esc_url($dismiss_url) . '" class="button button-secondary">' . esc_html__('I already did', 'easy-dark-theme-for-astra') . '</a>';
+    echo '<a href="' . esc_url($snooze_url) . '" style="color:#646970;text-decoration:underline;font-size:13px;line-height:28px;">' . esc_html__('Remind me later', 'easy-dark-theme-for-astra') . '</a>';
+    echo '</div>';
+    echo '</div>';
+    echo '</div>';
+    echo '</div>';
+  } // Fin de EDTA_Admin::maybe_show_review_notice()
+
+  // Descarta el aviso de valoración permanentemente.
+  public function handle_dismiss_review(): void {
+    check_admin_referer('edta_dismiss_review');
+    update_option('edta_review_dismissed', true, false);
+    wp_safe_redirect(add_query_arg('page', 'edta-settings', admin_url('admin.php')));
+    exit;
+  } // Fin de EDTA_Admin::handle_dismiss_review()
+
+  // Pospone el aviso de valoración 7 días.
+  public function handle_snooze_review(): void {
+    check_admin_referer('edta_snooze_review');
+    update_option('edta_review_snoozed_until', time() + (7 * DAY_IN_SECONDS), false);
+    wp_safe_redirect(add_query_arg('page', 'edta-settings', admin_url('admin.php')));
+    exit;
+  } // Fin de EDTA_Admin::handle_snooze_review()
 
   // Muestra aviso en el admin si Astra no está activo.
   public function maybe_show_astra_notice(): void {

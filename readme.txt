@@ -3,8 +3,8 @@ Contributors: jaelmeire
 Tags: dark mode, astra, theme switcher, accessibility, customization
 Requires at least: 6.0
 Tested up to: 6.9.4
-Requires PHP: 7.4
-Stable tag: 1.1.0
+Requires PHP: 8.0
+Stable tag: 1.1.1
 License: GPLv2 or later
 License URI: https://www.gnu.org/licenses/gpl-2.0.html
 
@@ -111,17 +111,20 @@ No. You should set your site colors using Astra Global Colors (Customizer). The 
 
 == Changelog ==
 
+= 1.1.1 =
+* Added review notice in the admin panel after 7 days of use.
+
 = 1.1.0 =
-* Admin interface now defaults to English as the base language
-* Added full i18n support with translations for Spanish (Spain), Spanish (Argentina), Spanish (Mexico), French, German, and Portuguese (Brazil)
-* All admin UI texts, tooltips, and select options are now fully translatable
-* Tested compatibility with WordPress 6.9.4
+* Admin interface now defaults to English as the base language.
+* Added full i18n support with translations for Spanish (Spain), Spanish (Argentina), Spanish (Mexico), French, German, and Portuguese (Brazil).
+* All admin UI texts, tooltips, and select options are now fully translatable.
+* Tested compatibility with WordPress 6.9.4.
 
 = 1.0.1 =
-* Tested compatibility with WordPress 6.9.1
+* Tested compatibility with WordPress 6.9.1.
 
 = 1.0.0 =
-* Official public release on WordPress.org
+* Official public release on WordPress.org.
 
 = 0.1.1 =
 * Updated plugin URL to official WordPress.org page.
@@ -132,17 +135,17 @@ No. You should set your site colors using Astra Global Colors (Customizer). The 
 
 = 0.1.0 =
 * Initial release:
-  * Auto/system mode and Button mode
-  * Floating toggle + shortcode + widget
-  * Icon/Text/Pill styles, position and visibility options
-  * Horizontal/vertical spacing based on position
-  * Optional theme transition on switch
-  * Free Preset Palette + Custom Palette
-  * Astra Global Colors palette mapping
-  * Export/Import settings (JSON) and Reset tools
-  * Cross-tab sync, fallbacks, and accessibility improvements
+  * Auto/system mode and Button mode.
+  * Floating toggle + shortcode + widget.
+  * Icon/Text/Pill styles, position and visibility options.
+  * Horizontal/vertical spacing based on position.
+  * Optional theme transition on switch.
+  * Free Preset Palette + Custom Palette.
+  * Astra Global Colors palette mapping.
+  * Export/Import settings (JSON) and Reset tools.
+  * Cross-tab sync, fallbacks, and accessibility improvements.
 
 == Upgrade Notice ==
 
-= 1.1.0 =
-* Admin interface now defaults to English with full i18n support. Translations added for ES, FR, DE, PT.
+= 1.1.1 =
+* Minor improvement: added a review notice in the admin panel.
