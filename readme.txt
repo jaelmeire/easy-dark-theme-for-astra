@@ -2,9 +2,9 @@
 Contributors: jaelmeire
 Tags: dark mode, astra, theme switcher, accessibility, customization
 Requires at least: 6.0
-Tested up to: 6.9.4
+Tested up to: 7.0
 Requires PHP: 8.0
-Stable tag: 1.1.1
+Stable tag: 1.1.2
 License: GPLv2 or later
 License URI: https://www.gnu.org/licenses/gpl-2.0.html
 
@@ -111,6 +111,9 @@ No. You should set your site colors using Astra Global Colors (Customizer). The 
 
 == Changelog ==
 
+= 1.1.2 =
+* Tested compatibility with WordPress 7.0
+
 = 1.1.1 =
 * Added review notice in the admin panel after 7 days of use.
 
@@ -147,5 +150,5 @@ No. You should set your site colors using Astra Global Colors (Customizer). The 
 
 == Upgrade Notice ==
 
-= 1.1.1 =
-* Minor improvement: added a review notice in the admin panel.
+= 1.1.2 =
+* Tested compatibility with WordPress 7.0
